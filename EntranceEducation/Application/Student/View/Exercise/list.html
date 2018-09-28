@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>自由练习</title>
+        <include file="./Public/weui2.0/__head.html"/>
+        <link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+        <link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+        
+         <style type="text/css">
+            .icon {width: 20px; height: 20px; float: left; margin-top: 0; margin-right: 5px; vertical-align: -0.15em; fill: currentColor; overflow: hidden; }
+            .bar {position:relative;padding: 0; padding: 0 15px; background-color:#fbf9fe; color: #476777; }
+            .title {background-color:#fbf9fe; color: #476777;border-bottom: 1px solid #d9d9d9;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            /*.icon {width: 20px; height: 20px}*/
+/*            .weui-cells__title {border-top: 1px solid #d9d9d9;}*/
+        </style>
+    
+        <script src="__PUBLIC__/font/iconfont.js"></script>    
+    
+    <body ontouchstart>
+
+        <!-- <header class="bar bar-nav">
+        <h1 class="title">登录</h1>
+        <a href="javascript:;" class="pull-left"><svg class="icon icon-left" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+        <a href="javascript:;" class="pull-right"><svg class="icon icon-left" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a></header> -->
+        <header class="bar bar-nav">
+            <div class="title">自由练习列表</div>
+            <a href="{:U('User/index',array('openId'=>session('openId')))}" class="pull-left">
+            <svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+        </header>        
+        <div class="bd">
+            <div class="page__bd">
+ 
+                <div class="weui-cells__title">按顺序练习</div>
+                <div class="weui-cells">
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise_chap')}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-sequence"></use></svg></span>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>顺序练习</p>
+                        </div>
+                        <div class="weui-cell__ft">{$quesNum.finish_num}/{$quesNum.num}题</div>
+                    </a>
+
+                    <a class="weui-cell weui-cell_access" href="{:U('Random/random',array('random'=>'1'))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-sequence"></use></svg></span>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>随机练习</p>
+                        </div>
+                        <div class="weui-cell__ft">{$randomArr.count}</div>
+                    </a>
+                </div>
+
+                <div class="weui-cells__title">按知识点分类</div>
+                <div class="weui-cells">
+                    <volist name="quesChapterArr" id="quesChapterArr" key="k">
+                        <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise_chap', array('chapid'=>$quesChapterArr['id']))}">
+                            <div class="weui-cell__hd">
+                                <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-{$icon[$k-1]}"></use></svg></span>   
+                            </div>                            
+                            <div class="weui-cell__bd">
+                                <p>{$quesChapterArr.chapter}</p>
+                            </div>
+                            <div class="weui-cell__ft">{$quesChapterArr.finish_num}/{$quesChapterArr.num}题</div></a>
+
+                    </volist>                    
+                </div>
+            
+
+                <div class="weui-cells__title">按题型分类</div>
+                <div class="weui-cells">
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise_chap', array('typeid'=>1))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-danxuan"></use></svg></span>
+
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>单选题</p>
+                        </div>
+                        <div class="weui-cell__ft">{$quesTypeArr[0]['finish_num']}/{$quesTypeArr[0]['num']}题</div></a>
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise_chap', array('typeid'=>2))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-judge"></use></svg></span>    
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>判断题</p>
+                        </div>
+                        <div class="weui-cell__ft">{$quesTypeArr[1]['finish_num']}/{$quesTypeArr[1]['num']}题</div></a>
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise_chap', array('typeid'=>3))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-mutil"></use></svg></span>    
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>多选题</p> 
+                        </div>
+                        <div class="weui-cell__ft">{$quesTypeArr[2]['finish_num']}/{$quesTypeArr[2]['num']}题</div></a>
+                </div>
+           
+                
+            </div>
+        </div>
+    </body>
+
+</html>
+<include file="./Public/html/_foot.html"/>

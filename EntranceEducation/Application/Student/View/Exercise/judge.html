@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>自由练习</title>
+		<include file="./Public/weui2.0/__head.html"/>
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+		<style type="text/css">
+			.bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+			.title {background-color:#fbf9fe; color: #476777;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            .picker-button {font-size: 14px; color: #476777;}
+            .weui-badge{background-color: #00ff00;}
+		</style>
+	</head>
+	<body>
+
+		<header class="bar bar-nav">
+	        <div class="title">{$quesItem.chapter}</div>
+	        <a href="{:U('Exercise/index')}" class="pull-left"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+	        <a href="javascript:;" class="pull-right open-popup" data-target="#half"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a>
+	    </header>
+
+		<div class="content">
+			<div class="title-progerss">
+				<ul>
+					<li class="open-popup" data-target="#half" style="width: 74%; text-align: left;">
+						<span><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-jindu1"></use></svg>{$quesItem.id|default="24"}/{$record.sum|default='112'}
+						</span>
+						<span style="margin-left: 5px;"><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-zhengque1"></use></svg>{$record.rig_cot|default='23'}</span>
+						<span style="margin-left: 5px;"><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-cuowu"></use></svg>{$record.wrg_cot|default='123'}</span>
+					</li>
+					<li id ="collect" style="width: 24%;text-align: right; ">
+						<span ><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-shoucang1"></use></svg><span id="collect_tip">收藏</span></span>
+					</li>
+					
+				</ul>
+			</div>
+			<div class="c-pic"><span class="weui-badge">{$quesItem.type}</span>{$quesItem.contents|repleace_question_image=###}</div>
+			<!-- <img class="c-pic" src="__PUBLIC__/images/pic.jpg"> -->
+			<div class="c-table">
+
+				<!-- option exit -->
+				
+				<a href="javascript:;">
+					<div class="option-area" id="option-right">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-icondanxuanxiangweixuanze"></use></svg></span>
+					    <lable class="option-contents">正确</lable>
+					</div>
+				</a>
+
+				<a href="javascript:;">
+					<div class="option-area" id="option-wrong">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-icondanxuanxiangweixuanze"></use></svg></span>
+					    <lable class="option-contents">错误</lable>
+					</div>
+				</a>
+				<if condition="$done eq '1'">
+					<span class="rightAns">正确答案：{$quesItem.right_answer}</span>
+				</if>	
+			</div>
+			<a class="c-button" href="{:U('Exercise/exercise_chap', array(
+			'chapid'=>session('chapid'),
+			'typeid'=>session('typeid'),
+			'quesid'=>session('quesid')+1)
+			)}">下一题</a>
+		</div>
+
+		<div class='demos-content-padded'></div>
+
+		<div id="half" class='weui-popup__container popup-bottom'>
+		    <div class="weui-popup__overlay"></div>
+		    <div class="weui-popup__modal">
+		        <div class="toolbar">
+			        <div class="toolbar-inner" >
+			        	<a href="{:U('Exercise/exercise_index')}" class="picker-button">更多</a>
+				       <div class="helf-title">入学考试题库</div>				       
+				    </div>
+		            
+		        </div>
+		        <div class="modal-content" style="height: auto; max-height: 400px; color: #000;">
+
+
+					<!-- 分 首列 尾列 都不是 三种情况考虑 -->
+
+		        	<volist name="quesList" id="quesList" key="k" >
+		        		<if condition="($k)%7 eq 1">
+		        			<div class="weui-flex">
+							    <a class="weui-flex__item" href="{$quesList.id|get_exercise_url_css=###}"><div class="{$quesList.id|get_exsercise_index_css=###}">{$quesList.id}</div></a>
+						<elseif condition="($k)%7 eq 0"/>
+							<a class="weui-flex__item" href="{$quesList.id|get_exercise_url_css=###}"><div class="{$quesList.id|get_exsercise_index_css=###}">{$quesList.id}</div></a>
+							    </div>
+						<else /> 
+							<a class="weui-flex__item" href="{$quesList.id|get_exercise_url_css=###}"><div class="{$quesList.id|get_exsercise_index_css=###}">{$quesList.id}</div></a>
+						</if>
+					</volist>
+				   
+
+		        </div>
+		    </div>
+		</div>
+
+	</body>
+</html>
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript">
+	// 获取页面加载的时间
+    var start_time = new Date();  
+
+	$('.option-area').one('click',function(){
+		// 选择了之后正确
+		var use        = $(this).find('use')[0];
+		var lable      = $(this).find('lable')[0];
+		var option     = lable.innerHTML == '正确' ? '对' : '错'; //选项
+		var resArr     = {'对':'right', '错':'wrong'}; //用于下面 对->right 的转换
+		var now        = new Date();
+		var time       = Math.ceil((now.getTime() - start_time.getTime()) / 1000);
+
+		var data = {
+			'quesid':<?php echo  session('quesid');?> , 
+			'option': option,
+			'time'  : time
+		}
+
+		var url = "{:U('Exercise/submit')}";
+        $.post(url, data, function(res){
+            if(res != 'done'){
+                if(option == res) {
+                    use.setAttribute('xlink:href', '#icon-option-right');
+                } else {
+                    use.setAttribute('xlink:href', '#icon-option-wrong');
+                    $('#option-'+resArr[res]).find('use')[0].setAttribute('xlink:href', '#icon-option-right');
+                }
+            }else{
+            	$.alert("你已经做过此题！","确定");  
+            }
+        });
+
+        $('.c-table a').removeAttr('href'); 
+		$('.option-area').unbind(); 
+	});
+
+
+		
+	// 定义收藏点击的次数
+    var click_select = 0;
+    // 点击选项后上传答案
+    $('#collect').click(function (){
+		// 用点击基数次数 偶数次数来判定是否选择
+		click_select ++;
+		var selec_icon = $(this).find('use')[0];
+
+		if (click_select % 2 == 1) {
+			// 收藏
+			var url = "{:U('Collect/collect')}";
+			var data = {};
+			$.post(url, data, function(res){
+	          	selec_icon.setAttribute('xlink:href', '#icon-shoucang11');
+				$('#collect_tip').html('已收藏');
+	        });
+
+		} else {
+			// 取消收藏
+			var url = "{:U('Collect/cancel')}";
+			var data = {};
+			$.post(url, data, function(res){
+				selec_icon.setAttribute('xlink:href', '#icon-shoucang1');
+				$('#collect_tip').html('收藏');
+			});
+		}
+	});
+</script>
+		<script type="text/javascript">
+			var res = "{$quesItem.right_answer}";
+			var option = "{$recordArr.answer}";
+			//var use = document.getElementById("use");
+			var use = document.getElementsByTagName("use");
+			var myarray = new Array('对','错');
+			
+			for(var i=0;i<myarray.length;i++){
+				var x = myarray[i];
+				var y = i+6;
+				if (res.indexOf(x)!=-1) {
+					if(option.indexOf(x)!=-1){
+						//document.write(x);
+						use[y].setAttribute("xlink:href","#icon-tianchongxuanxiangkuangqueding");
+					}else{
+                        if(option!=''){
+							//var icon_attr = use.getAttribute('xlink:href');
+							use[y].setAttribute("xlink:href","#icon-option-right");
+                        }else{
+                        	
+                        }
+					}
+				}else{
+					if(option.indexOf(x)!=-1) {
+						use[y].setAttribute("xlink:href","#icon-option-wrong");
+					}else{
+
+					}
+				}
+			}
+		</script>

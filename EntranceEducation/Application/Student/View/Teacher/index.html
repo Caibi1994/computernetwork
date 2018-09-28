@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">教师端</h1>
+    </header>
+
+    <div class="weui_grids">
+      <!-- <a href="buttons.html" class="weui_grid js_grid" data-id="button">
+        <div class="weui_grid_icon">
+          <img src="images/icon_nav_button.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          我的
+        </p>
+      </a> -->
+      <a href="{:U('homework_index')}/openId/{$openId}" class="weui_grid js_grid" data-id="cell">
+        <div class="weui_grid_icon">
+          <img src="__PUBLIC__/images/icon_nav_select.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          课后作业<span class="demos-badge demos-badge-red demos-badge-teacher">{$correcNumber|default='0'}</span>
+        </p>
+      </a>
+      <a href="{:U('signin_index')}/openId/{$openId}" class="weui_grid js_grid" data-id="cell">
+        <div class="weui_grid_icon">
+          <img src="__PUBLIC__/images/icon_nav_city.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          在线签到
+        </p>
+      </a>
+      <a href="{:U('test_index')}/openId/{$openId}" class="weui_grid js_grid">
+        <div class="weui_grid_icon">
+          <img src="__PUBLIC__/images/icon_nav_article.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          随堂测试
+        </p>
+      </a>
+      <a href="{:U('Mark/markMenu')}/openId/{$openId}" class="weui_grid js_grid" data-id="dialog">
+        <div class="weui_grid_icon">
+          <img src="__PUBLIC__/images/icon_nav_cell.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          积分管理
+        </p>
+      </a>
+      <a href="http://pan.baidu.com/s/1sk9GmTn" class="weui_grid js_grid" data-id="progress">
+        <div class="weui_grid_icon">
+          <img src="http://testet.sinaapp.com/Public/images/download.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          资料下载
+        </p>
+      </a>
+      <a href="http://testet.sinaapp.com/index.php/Community/index/openId/{$openId}" class="weui_grid js_grid" data-id="msg">
+        <div class="weui_grid_icon">
+          <img src="__PUBLIC__/images//icon_nav_dialog.png" alt="">
+        </div>
+        <p class="weui_grid_label">
+          平台互动
+        </p>
+      </a>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+var number = $('.demos-badge').html();
+if(number == 0)
+  $('.demos-badge').hide();
+</script>

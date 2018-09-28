@@ -1,0 +1,22 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Login</title>  
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/login.css"/>  
+</head>  
+<body>  
+   
+    <div id="login">  
+        <h1>学生登录</h1>  
+        <form method="post" action="{:U('Index/check')}">  
+            <input type="text" required="required" placeholder="用户名" name="u"></input>  
+            <input type="password" required="required" placeholder="密码" name="p"></input>  
+            <button class="but" type="submit">登录</button>  
+            <!-- <button class="but2" onclick="javascript:window.location.href='{:U('Index/signin')}'">注册</button> 需要删除-->  
+        </form> 
+        <p>帐号为学号，密码为身份证后6位</p> 
+    </div>  
+</body>  
+</html>  

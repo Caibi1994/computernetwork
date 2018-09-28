@@ -1,0 +1,39 @@
+<!-- 已经提列表 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <style>
+      [class*="weui-col-"] {
+        border: 1px solid #ccc;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+
+    </style>
+  </head>
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">提交列表</h1>
+    </header>
+
+    <div class="weui-row weui-no-gutter">
+      <div class="weui-col-10">序号</div>
+        <div class="weui-col-20">姓名</div>
+        <div class="weui-col-20">得分</div>
+      <div class="weui-col-50">提交时间</div>
+    </div>
+    <volist name="stuTestList" id="stuTestList" key="k" empty="没有测试提交信息">
+      <div class="weui-row weui-no-gutter">
+        <div class="weui-col-10">{$k}</div>
+        <div class="weui-col-20">{$stuTestList.name|default='null'}</div>
+        <div class="weui-col-20">{$stuTestList.score|default='null'}</div>
+        <div class="weui-col-50">{$stuTestList.time|default='null'}</div>
+      </div>
+    </volist>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

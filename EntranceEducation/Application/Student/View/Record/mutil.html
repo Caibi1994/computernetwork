@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>答题记录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+		<include file="./Public/weui2.0/__head.html"/>
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+		<style type="text/css">
+			.bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+			.title {background-color:#fbf9fe; color: #476777;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            /*.icon {width: 20px; height: 20px}*/
+            .picker-button {font-size: 14px; color: #3d4145;}
+            .weui-badge{background-color: #cc99cc;}
+		</style>
+	</head>
+	<body>
+		<header class="bar bar-nav">
+	        <div class="title">{$quesItem.chapter}</div>
+	        <a href="{:U('User/index',array('openId'=>session('openId')))}" class="pull-left"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+	        <a href="javascript:;" class="pull-right open-popup" data-target="#half"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a>
+	    </header>
+
+		<div class="content">
+<!--		<span class="c-title">{$record.name}</span>
+ 			<p class="c-time">{:date('m-d H:i:s', time())}<label style=" margin-left: 60px;">正确&nbsp;{$record.rig_cot}&nbsp;错误&nbsp;{$record.wrg_cot}&nbsp;进度&nbsp;{$record.count}/{$record.sum}</label></p> -->
+
+			<div class="title-progerss">
+				<ul>
+					<li class="open-popup" data-target="#half" style="width: 74%; text-align: left;">
+						<span><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-jindu1"></use></svg>{$quesItem.id|default="24"}/{$record.sum|default='112'}
+						</span>
+						<span style="margin-left: 5px;"><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-zhengque1"></use></svg>{$record.rig_cot|default='23'}</span>
+						<span style="margin-left: 5px;"><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-cuowu"></use></svg>{$record.wrg_cot|default='123'}</span>
+					</li>
+<!-- 					<li id ="collect" style="width: 24%;text-align: right; ">
+						<span ><svg class="icon_progress" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-shoucang1"></use></svg><span id="collect_tip">收藏</span></span>
+					</li> -->
+					
+				</ul>
+			</div>
+
+			<div class="c-pic">
+				<span class="weui-badge">{$quesItem.type}</span>
+				<!-- <span class="weui-badge" style="margin-left: 5px;">{$quesItem.chapter}</span> -->
+				{$quesItem.contents}
+			</div>
+			<!-- <img class="c-pic" src="__PUBLIC__/images/pic.jpg"> -->
+			<div class="c-table">
+
+				<!-- option exit -->
+				<if condition="$quesItem.option_a neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-a">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-a"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_a}</lable>
+						</div>
+					</a>
+				</if>
+
+				<if condition="$quesItem.option_b neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-b">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-b"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_b}</lable>
+						</div>
+					</a>
+				</if>
+
+				<if condition="$quesItem.option_c neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-c">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-c"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_c}</lable>
+						</div>
+					</a>
+				</if>
+
+				<if condition="$quesItem.option_d neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-d">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_d}</lable>
+						</div>
+					</a>
+				</if>
+
+				<div id="right_answer">
+					<span class="rightAns">你的答案：{$recordArr.answer}</span>
+                	<span class="rightAns">正确答案：{$rightAns}</span>
+                </div>
+				
+			</div>
+
+
+			<!-- <a class="submit" href="{('Exercise/exercise')}">下一题</a> -->
+			<!-- <a class="c-button" id="submit" href="javascript:;">确定</a> -->
+
+			<a class="c-button" href="{:U('Record/record',array('nextid'=>session('nextid')))}">下一题</a>
+
+		</div>
+
+		<div class='demos-content-padded'></div>
+
+		<div id="half" class='weui-popup__container popup-bottom'>
+		    <div class="weui-popup__overlay"></div>
+		    <div class="weui-popup__modal">
+		        <div class="toolbar">
+			        <div class="toolbar-inner">
+			        	<a href="{:U('Record/record_index')}" class="picker-button">更多</a>
+				        <div class="helf-title">入学考试题库</div>       
+				    </div>
+		            
+		        </div>
+		        <div class="modal-content" style="height: auto; max-height: 400px; color: #000;">
+
+
+					<!-- 分 首列 尾列 都不是 三种情况考虑 -->
+
+		        	<volist name="quesList" id="quesList" key="k" >
+		        		<if condition="($k)%7 eq 1">
+		        			<div class="weui-flex">
+							    <a class="weui-flex__item" href="{$quesList.quesid|get_record_url_css=###}"><div class="{$quesList.quesid|get_record_index_css=###}">{$quesList.quesid}</div></a>
+						<elseif condition="($k)%7 eq 0"/>
+							<a class="weui-flex__item" href="{$quesList.quesid|get_record_url_css=###}"><div class="{$quesList.quesid|get_record_index_css=###}">{$quesList.quesid}</div></a>
+							    </div>
+						<else /> 
+							<a class="weui-flex__item" href="{$quesList.quesid|get_record_url_css=###}"><div class="{$quesList.quesid|get_record_index_css=###}">{$quesList.quesid}</div></a>
+						</if>
+					</volist>
+		        </div>
+		    </div>
+		</div>
+	</body>
+</html>
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript">
+	// 点击后monup
+	$(document).on("click", ".weui-popup-modal", function() {
+        console.log("open popup");
+    }).on("close", ".weui-popup-modal", function() {
+        console.log("close popup");
+    });
+
+ //    // 定义收藏点击的次数
+ //    var click_select = 0;
+ //    // 点击选项后上传答案
+ //    $('#collect').click(function (){
+	// 	// 用点击基数次数 偶数次数来判定是否选择
+	// 	click_select ++;
+	// 	var selec_icon = document.getElementsByTagName("use");
+
+	// 	if (click_select % 2 == 1) {
+
+	// 		var message = confirm("确定取消收藏吗？");
+	//         if(message==true){  
+	//             //点击确定后取消收藏
+	// 			var url = "{:U('Collect/cancel')}";
+	// 			var data = {};
+	// 			$.post(url, data, function(res){
+	// 				selec_icon[3].setAttribute('xlink:href', '#icon-shoucang1');
+	// 				$('#collect_tip').html('收藏');
+	// 			});
+	// 			window.location.href="{:U('Collect/recordList', array('nextid'=>session('nextid')-1))}";
+	// 			//这个写法用户确定取消收藏直接跳到下一题
+	// 			//如果是以下情况：用户取消收藏，又突然想收藏了，那就注释跳转的代码
+	// 		}else{
+	// 			//取消则啥都不做
+	// 		}
+
+	// 	} else {
+	// 		// 收藏
+	// 		var url = "{:U('Collect/collect')}";
+	// 		var data = {};
+	// 		$.post(url, data, function(res){
+	//           	selec_icon[3].setAttribute('xlink:href', '#icon-shoucang11');
+	// 			$('#collect_tip').html('已收藏');
+	//         });
+	// 	}
+	// });
+
+</script>
+		<script type="text/javascript">
+			var res = "{$rightAns}";
+			var option = "{$recordArr.answer}";
+			//var use = document.getElementById("use");
+			var use = document.getElementsByTagName("use");
+			var myarray = new Array('A','B','C','D');
+			
+			for(var i=0;i<myarray.length;i++){
+				var x = myarray[i];
+				var y = i+5;
+				if (res.indexOf(x)!=-1) {
+					if(option.indexOf(x)!=-1){
+						//document.write(x);
+						use[y].setAttribute("xlink:href","#icon-tianchongxuanxiangkuangqueding");
+					}else{
+                        if(option!=''){
+							//var icon_attr = use.getAttribute('xlink:href');
+							use[y].setAttribute("xlink:href","#icon-option-right");
+                        }else{
+                        	
+                        }
+					}
+				}else{
+					if(option.indexOf(x)!=-1) {
+						use[y].setAttribute("xlink:href","#icon-option-wrong");
+					}else{
+
+					}
+				}
+			}
+		</script>

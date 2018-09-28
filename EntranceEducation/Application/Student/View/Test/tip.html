@@ -1,0 +1,42 @@
+<html class="pixel-ratio-1">
+    
+    <head>
+        <include file="./Public/weui2.0/__head.html"/>
+        <style type="text/css">
+            .weui-btn_primary {background-color: #10aeff;}
+            .weui-icon-success {color: #10aeff;}
+        </style>
+
+    </head>
+    
+    <body ontouchstart="">
+        <div class="weui-msg">
+            <div class="weui-msg__icon-area">
+                <i class="weui-icon-success weui-icon_msg"></i>
+                <!-- 考试未通过提示 -->
+                <!-- <i class="weui-icon-warn weui-icon_msg"></i> -->
+            </div>
+            <div class="weui-msg__text-area">
+                <h2 class="weui-msg__title">提交成功</h2>
+                <p class="weui-msg__desc">你已经完成本次测试。
+                    答题{$ansNum}道，正确{$rightNum}道。
+                    <a href="javascript:void(0);" id="testInfo">查看解析</a></p>
+            </div>
+            <div class="weui-msg__opr-area">
+                <p class="weui-btn-area">
+                    <a href="{:U('User/index',array('openId'=>session('openId')))}" class="weui-btn weui-btn_primary">返回主页</a>
+                   <!--  <a id="testInfo" href="javascript:;" class="weui-btn weui-btn_default">查看答题</a></p> -->
+            </div>
+        </div>
+    </body>
+
+</html>
+        
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript">
+    $(function(){
+        $("#testInfo").click(function(){
+            window.location.href="{:U('Test/testAnalyze')}";
+        });
+    });
+</script>

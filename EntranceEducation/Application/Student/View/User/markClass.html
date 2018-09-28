@@ -1,0 +1,39 @@
+<!-- 成绩列表 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <style>
+      [class*="weui-col-"] {
+        border: 1px solid #ccc;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+
+    </style>
+  </head>
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">同学成绩</h1>
+    </header>
+
+    <div class="weui-row weui-no-gutter">
+      <div class="weui-col-25">姓名</div>
+      <div class="weui-col-25">学号</div>
+      <div class="weui-col-25">班级</div>
+      <div class="weui-col-25">积分</div>
+    </div>
+    <volist name="markList" id="markList" key="k" empty="没有查到信息">
+      <div class="weui-row weui-no-gutter">
+        <div class="weui-col-25">{$markList.name}</div>
+        <div class="weui-col-25">{$markList.number}</div>
+        <div class="weui-col-25">{$markList.class}</div>
+        <div class="weui-col-25">{$markList.lastMark}</div>
+      </div>
+    </volist>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

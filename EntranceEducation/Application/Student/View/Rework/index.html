@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>随堂测试</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+	</head>
+	<body>
+
+	</body>
+<include file="./Public/html/_foot.html"/>
+
+</html>
+
+<!-- <script src="__PUBLIC__/lib/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+	// 获取页面加载的时间
+    var start_time = new Date();  
+
+	$('.option-area').one('click',function(){
+		// 选择了之后正确
+		var use       = $(this).find('use')[0];
+		var icon_attr = use.getAttribute('xlink:href');
+		var option    = icon_attr.substring(13).toUpperCase(); //选项
+		
+		var data = {
+			'option': option,
+			'time'  : start_time.getTime()
+		}
+
+		var url = "{:U('Exercise/submit')}";
+        $.post(url, data, function(res){
+          	if(res == option) {
+          		use.setAttribute('xlink:href', '#icon-option-right');
+          	} else {
+          		use.setAttribute('xlink:href', '#icon-option-wrong');
+				$('#option-'+res.toLowerCase()).find('use')[0].setAttribute('xlink:href', '#icon-option-right');
+          	}
+        });
+
+		$('.c-table a').removeAttr('href'); //取消a：herf 取消点击样式
+		$('.option-area').unbind(); //移除被选元素的事件处理程序
+	})	
+</script> -->

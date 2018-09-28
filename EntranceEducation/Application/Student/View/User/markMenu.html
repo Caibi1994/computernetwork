@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+  <include file="./Public/html/_refresh.html"/>
+  <header class="demos-header"> 
+   <h1 class="demos-title">积分详情</h1>
+  </header> 
+  <div class="weui_cells_title">查看积分</div>
+  <div class="weui_cells weui_cells_access">
+    <a class="weui_cell" href="{:U('markDetails')}">
+      <div class="weui_cell_bd weui_cell_primary">
+        <p>我的积分</p>
+      </div>
+      <div class="weui_cell_ft"></div>
+    </a>
+    <a class="weui_cell" href="{:U('markClassList')}">
+      <div class="weui_cell_bd weui_cell_primary">
+        <p>同学积分</p>
+      </div>
+      <div class="weui_cell_ft"></div>
+    </a>       
+  </div>
+ </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

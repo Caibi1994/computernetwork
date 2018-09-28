@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>错题重做</title>
+		<include file="./Public/weui2.0/__head.html"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+		<style type="text/css">
+			body{
+		    	margin: 0 20px;
+		    }
+			.c-time{
+				padding-bottom: 13px;
+			}
+		    .content{
+		    	margin-left: 0;
+		    	margin-right: 0;
+		    }		
+			.bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+			.title {background-color:#fbf9fe; color: #476777;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            .picker-button {font-size: 14px; color: #476777;}
+            .weui-badge{background-color: #cc99cc;}
+            .content{padding-bottom: 0px;padding-top: 2rem;}
+            .option-contents {display: block;margin-left: 40px;padding: 13px 10px 20px 0;line-height: 25px;margin-top: -20px;}
+		</style>
+
+	</head>
+	<body>
+		<header class="bar bar-nav">
+	        <div class="title">{$ques.chapter}</div>
+	        <a href="{:U('User/index',array('openId'=>session('openId')))}" class="pull-left"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+<!-- 	        <a href="javascript:;" class="pull-right open-popup" data-target="#half"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a> -->
+	    </header>		
+		<div class="content">
+			<span class="c-title">{$name}</span>
+			<p class="c-time">{:date('m-d H:i:s', time())}<label style=" float: right;">还剩{$num}道错题未复习</label></p>
+			<div class="c-pic">
+				<span class="weui-badge">{$ques.type}</span>
+				<!-- <span class="weui-badge" style="margin-left: 5px;">{$ques.chapter}</span> -->
+				{$ques.contents}
+			</div>
+		</div>
+			<if condition="$ques.option_a neq ''">
+				<a href="javascript:;">
+					<div class="option-area" id="option-a">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-a"></use></svg></span>
+					    <lable class="option-contents">{$ques.option_a}</lable>
+					</div>
+				</a>
+			</if>
+			<if condition="$ques.option_b neq ''">
+				<a href="javascript:;">
+					<div class="option-area" id="option-b">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-b"></use></svg></span>
+					    <lable class="option-contents">{$ques.option_b}</lable>
+					</div>
+				</a>
+			</if>
+
+			<if condition="$ques.option_c neq ''">
+				<a href="javascript:;">
+					<div class="option-area" id="option-c">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-c"></use></svg></span>
+					    <lable class="option-contents">{$ques.option_c}</lable>
+					</div>
+				</a>
+			</if>
+
+			<if condition="$ques.option_d neq ''">
+				<a href="javascript:;">
+					<div class="option-area" id="option-d">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+					    <lable class="option-contents">{$ques.option_d}</lable>
+					</div>
+				</a>
+			</if>
+		<div id="right_answer"></div>
+
+		<a class="c-button" id="submit" href="javascript:;">确定</a>
+		<a class="c-button" href="{:U('Rework/chose')}">下一题</a>
+	</div>
+
+</body>
+</html>
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript">
+	// 获取页面加载的时间
+    var start_time = new Date();  
+    var click_times = {'A':0, 'B':0, 'C':0, 'D':0};
+
+
+    $('.option-area').click(function(){
+    	var use       = $(this).find('use')[0];
+		var icon_attr = use.getAttribute('xlink:href');
+		var option    = icon_attr.substring(13,14).toUpperCase(); //选项
+		click_times[option] ++;
+
+		// 判断该选项是否选中
+		if(click_times[option] % 2 == 0) {
+			use.setAttribute('xlink:href', icon_attr.substring(0,14));
+		} else {
+			use.setAttribute('xlink:href', icon_attr + '-select');
+		}
+
+		// $('.c-table a').removeAttr('href'); //取消a：herf 取消点击样式
+		// $('.option-area').unbind(); //移除被选元素的事件处理程序
+
+    });
+
+
+    $('#submit').click(function(){
+    	//opyion储存用户选择的选项，格式例如ABD
+    	var option = "";
+    	for (x in click_times)
+		{
+			if (click_times[x] % 2 == 1) {
+				option += x;
+			}
+		}
+		// alert(option);
+
+	  	// 对用户未选择情况做处理
+	  	if (option == '') {
+	  		alert('你还没有选择答案');
+	  		return false;
+	  	}
+		if (option.length == 1) {
+	  		alert('至少选择2个选项！');
+	  		return false;
+	  	}
+
+
+		var now       = new Date();
+		var time      = Math.ceil((now.getTime() - start_time.getTime())/1000);
+
+		var url = "{:U('Rework/submit')}";
+		var data = {
+			'option': option,
+			'time'  : time,
+		}
+
+        $.post(url, data, function(res){
+        	//res为正确答案
+        	// console.log(res);
+        	$('#right_answer').html('正确选项：'+ res);
+        	// console.log(option);
+        	for (x in click_times)
+			{
+				var use = $('#option-'+x.toLowerCase()).find('use')[0];
+				if (res.indexOf(x) != -1) {
+					if (option.indexOf(x) != -1) {
+						// 选择，正确答案：打对勾
+						use.setAttribute('xlink:href', '#icon-option-right');
+
+					} else {
+						// 不选择，正确答案：改底色
+						var icon_attr = use.getAttribute('xlink:href');
+						use.setAttribute('xlink:href', icon_attr + '-select');
+					}
+				} else {
+					if (option.indexOf(x) != -1) {
+						// 选择，错误答案：打错号
+						use.setAttribute('xlink:href', '#icon-option-wrong');
+					} else {
+						// 不选择，错误答案：不处理
+					}
+				}
+			}
+
+		$('.c-table a').removeAttr('href'); //取消a：herf 取消点击样式
+		$('.option-area').unbind(); //移除被选元素的事件处理程序
+
+        });
+
+		// 隐藏确定键
+        $(this).hide();
+
+    });
+    
+
+</script>
+

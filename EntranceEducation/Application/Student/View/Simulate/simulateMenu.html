@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">入学测试</h1>
+    </header>
+
+    <div class="bd">
+      <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="{:U('test')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/onlinetest.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>在线测试</p>
+          </div>
+          <div class="weui_cell_ft"><if condition="$state"><i class="weui_icon_success"></i><else /> <i class="weui_icon_warn"></i></if></div>
+        </a>
+        <a class="weui_cell" href="{:U('testAnalyze')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/analysis.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>题目解析</p>
+          </div>
+          <div class="weui_cell_ft"><if condition="$state"><i class="weui_icon_success"></i><else /> <i class="weui_icon_warn"></i></if></div>
+        </a>
+        <a class="weui_cell" href="{:U('testDetails')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/account.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>测试统计</p>
+          </div>
+          <div class="weui_cell_ft"><span class="demos-badge">{$number|default='0'}</span></div>
+        </a>
+        <a class="weui_cell" href="{:U('Teacher/test_view')}/quizId/{$quizId}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/detail.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>测试详情</p>
+          </div>
+          <div class="weui_cell_ft"><span class="demos-badge">{$number|default='0'}</span></div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">签到管理</h1>
+    </header>
+    
+    <div class="weui_cells weui_cells_form">
+      <div class="weui_cell weui_cell_switch">
+        <div class="weui_cell_hd weui_cell_primary">停止签到</div>
+        <div class="weui_cell_ft">
+          <if condition="$state eq '开启'">
+            <input class="weui_switch" type="checkbox" >
+          <else /> 
+            <input class="weui_switch" type="checkbox" checked="checked" disabled="disabled">  
+          </if>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="weui_cells_title">签到信息</div>
+    <div class="weui_cells weui_cells_access">
+      <a class="weui_cell" href="{:U('signin_view')}">
+        <div class="weui_cell_bd weui_cell_primary">
+          <p>签到记录</p>
+        </div>
+        <div class="weui_cell_ft"><span class="demos-badge">{$signinNum|default='0'}</span></div>
+      </a>
+    </div>
+  </body>
+</html>
+
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+  isFirstClick = true;
+  $("input[type='checkbox']").click(function(){
+    if(isFirstClick){
+      if($(this).is(':checked')){
+        url = "{:U('signin_close')}";
+        $.post(url,{state:'关闭'},function(res){
+          if(res = 'success'){
+            isFirstClick = false;
+            $.toptip('本次签到已经关闭','success');
+          }
+        });
+      }
+    }
+  });
+
+</script>

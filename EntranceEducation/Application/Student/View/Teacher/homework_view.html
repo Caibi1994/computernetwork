@@ -1,0 +1,293 @@
+
+<!-- 浏览作业 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">浏览作业</h1>
+    </header>
+
+    <script src="http://jqweui.com/dist/lib/jquery-2.1.4.js"></script>
+    <script src="http://jqweui.com/dist/js/jquery-weui.js"></script>
+    <script src="http://jqweui.com/dist/lib/fastclick.js"></script>
+
+    <volist name="homeworkList" id="homeworkList" empty="没有作业可供浏览">
+        <div class="weui_cells weui_cells_form" id="{$homeworkList.id}">
+          <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+              <div class="weui_uploader">
+                <div class="weui_uploader_hd weui_cell">
+                  <div class="weui_cell_bd weui_cell_primary">{$homeworkList.name}</div>
+                </div>
+                <div class="weui_uploader_bd">
+                
+                  <ul class="weui_uploader_files">
+                    
+                    <notempty name="homeworkList.pic1Url">
+                      <!-- <a href="{$homeworkList.pic1Url}"> -->
+                     
+                      <li class="weui_uploader_file" style="background-image:url({$homeworkList.pic1Url})"></li>
+                      <!-- </a> -->
+                     
+                    </notempty>
+                    <notempty name="homeworkList.pic2Url">
+                    <!-- <a href="{$homeworkList.pic2Url}"> -->
+                      <li class="weui_uploader_file" style="background-image:url({$homeworkList.pic2Url})"></li>
+                    <!-- </a> -->
+                    </notempty>
+                    <notempty name="homeworkList.pic3Url">
+                    <!-- <a href="{$homeworkList.pic3Url}"> -->
+                      <li class="weui_uploader_file" style="background-image:url({$homeworkList.pic3Url})"></li>
+                    <!-- </a> -->
+                    </notempty>
+                    <notempty name="homeworkList.pic4Url">
+                    <!-- <a href="{$homeworkList.pic4Url}"> -->
+                      <li class="weui_uploader_file" style="background-image:url({$homeworkList.pic4Url})"></li>
+                    <!-- </a> -->
+                    </notempty>
+                    <notempty name="homeworkList.pic5Url">
+                    <!-- <a href="{$homeworkList.pic5Url}"> -->
+                      <li class="weui_uploader_file" style="background-image:url({$homeworkList.pic5Url})"></li>
+                    <!-- </a> -->
+                    </notempty>
+                    <notempty name="homeworkList.pic6Url">
+                    <!-- <a href="{$homeworkList.pic6Url}"> -->
+                      <li class="weui_uploader_file" style="background-image:url({$homeworkList.pic6Url})"></li>
+                    </notempty>
+                    <!-- </a> -->
+                    
+                  </ul>
+                
+                </div>
+                <a href="javascript:;" class="weui-btn weui-btn_primary" id="tom{$key}">浏览图片</a>
+                <br>
+                <script>
+                  $(function() {
+                  FastClick.attach(document.body);
+                  });
+                </script>
+                <script src="http://jqweui.com/dist/js/swiper.js"></script>
+                <script>
+                    var tom{$key} = $.photoBrowser({
+                          items: [
+                              "{$homeworkList.pic1Url}",
+                              "{$homeworkList.pic2Url}",
+                              "{$homeworkList.pic3Url}",
+                              "{$homeworkList.pic4Url}",
+                              "{$homeworkList.pic5Url}",
+                              "{$homeworkList.pic6Url}",
+                          ],
+
+                          onSlideChange: function(index) {
+                            console.log(this, index);
+                          },
+
+                          onOpen: function() {
+                            console.log("onOpen", this);
+                          },
+                          onClose: function() {
+                            console.log("onClose", this);
+                          }
+                        });
+                        $("#tom{$key}").click(function() {
+                          tom{$key}.open();
+                        });
+                </script>
+
+                 <div class="weui-photo-browser-modal" style="display: none;">            
+                  <div class="swiper-container" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> 
+                    <div class="swiper-wrapper" style="transition-duration: 200ms; transform: translate3d(0px, 0px, 0px);">                                
+                      <div class="swiper-slide swiper-slide-active">                  
+                        <div class="photo-container">                    
+                          <img src="{$homeworkList.pic1Url}">                  
+                        </div>                
+                      </div>                                
+                      <div class="swiper-slide">                  
+                        <div class="photo-container">                    
+                          <img src="{$homeworkList.pic2Url}">                  
+                        </div>                
+                      </div>                                
+                      <div class="swiper-slide">                  
+                        <div class="photo-container">                    
+                          <img src="{$homeworkList.pic3Url}">                  
+                        </div>                
+                      </div>    
+
+
+                      <div class="swiper-slide">                  
+                        <div class="photo-container">                    
+                          <img src="{$homeworkList.pic4Url}">                  
+                        </div>                
+                      </div> 
+
+                      <div class="swiper-slide">                  
+                        <div class="photo-container">                    
+                          <img src="{$homeworkList.pic5Url}">                  
+                        </div>                
+                      </div> 
+
+                      <div class="swiper-slide">                  
+                        <div class="photo-container">                    
+                          <img src="{$homeworkList.pic6Url}">                  
+                        </div>                
+                      </div>    
+                    </div>   
+
+
+                      <div class="caption">                                
+                       <div class="caption-item caption-item-0 active"></div>
+                       <div class="caption-item caption-item-1"></div>
+                       <div class="caption-item caption-item-2"></div>
+                       <div class="caption-item caption-item-3"></div>
+                       <div class="caption-item caption-item-4"></div>
+                       <div class="caption-item caption-item-5"></div>
+                      </div>
+
+                     <div class="swiper-pagination swiper-pagination-bullets">
+                       <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+                       <span class="swiper-pagination-bullet"></span>
+                       <span class="swiper-pagination-bullet"></span>
+                       <span class="swiper-pagination-bullet"></span>
+                        <span class="swiper-pagination-bullet"></span>
+                       <span class="swiper-pagination-bullet"></span>
+                     </div> 
+
+                  </div>
+                 </div> 
+             
+                  <script src="http://jqweui.com/dist/lib/fastclick.js"></script>
+                 
+                
+
+                <div class="weui_media_box weui_media_text" style="padding:0; position:inherit">
+                  <p class="weui_media_desc">作业得分：{$homeworkList.mark}</p>
+                  <ul class="weui_media_info">
+                    <li class="weui_media_info_meta">批改人</li>
+                    <li class="weui_media_info_meta">{$homeworkList.correcter}</li>
+                    <li class="weui_media_info_meta weui_media_info_meta_extra"><if condition="$homeworkList.correcter eq '未批改'">提交时间：{$homeworkList.time}<else/>批改时间：{$homeworkList.correctTime}</if></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </volist>
+    <!-- <include file="./Public/html/_foot.html"/> -->
+   <!-- <script src="http://jqweui.com/dist/lib/jquery-2.1.4.js"></script>
+    <script src="http://jqweui.com/dist/js/jquery-weui.js"></script>
+    <script src="http://jqweui.com/dist/lib/fastclick.js"></script>
+    
+    <script>
+      $(function() {
+      FastClick.attach(document.body);
+      });
+    </script>-->
+
+    <include file="./Public/html/_refreshJs.html"/>
+  <!-- </body>
+</html> -->
+
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!--<script src="http://jqweui.com/dist/js/swiper.js"></script>-->
+
+<!--
+<script>
+  var tom{$key} = $.photoBrowser({
+        items: [
+          "{$homeworkList.pic1Url}",
+          "{$homeworkList.pic2Url}",
+          "{$homeworkList.pic3Url}",
+          "{$homeworkList.pic4Url}",
+          "{$homeworkList.pic5Url}",
+          "{$homeworkList.pic6Url}",
+        ],
+
+        onSlideChange: function(index) {
+          console.log(this, index);
+        },
+
+        onOpen: function() {
+          console.log("onOpen", this);
+        },
+        onClose: function() {
+          console.log("onClose", this);
+        }
+      });
+      $("#tom{$key}").click(function() {
+        tom{$key}.open();
+      });
+</script>-->
+
+
+<!-- <div class="weui-photo-browser-modal" style="display: none;">            
+  <div class="swiper-container" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> 
+    <div class="swiper-wrapper" style="transition-duration: 200ms; transform: translate3d(0px, 0px, 0px);">                                
+      <div class="swiper-slide swiper-slide-active">                  
+        <div class="photo-container">                    
+          <img src="{$homeworkList.pic1Url}">                  
+        </div>                
+      </div>                                
+      <div class="swiper-slide">                  
+        <div class="photo-container">                    
+          <img src="{$homeworkList.pic2Url}">                  
+        </div>                
+      </div>                                
+      <div class="swiper-slide">                  
+        <div class="photo-container">                    
+          <img src="{$homeworkList.pic3Url}">                  
+        </div>                
+      </div>    
+
+
+      <div class="swiper-slide">                  
+        <div class="photo-container">                    
+          <img src="{$homeworkList.pic4Url}">                  
+        </div>                
+      </div> 
+
+      <div class="swiper-slide">                  
+        <div class="photo-container">                    
+          <img src="{$homeworkList.pic5Url}">                  
+        </div>                
+      </div> 
+
+      <div class="swiper-slide">                  
+        <div class="photo-container">                    
+          <img src="{$homeworkList.pic6Url}">                  
+        </div>                
+      </div>    
+
+
+     </div>              
+      <div class="caption">                                
+       <div class="caption-item caption-item-0 active"></div>
+       <div class="caption-item caption-item-1"></div>
+       <div class="caption-item caption-item-2"></div>
+       <div class="caption-item caption-item-3"></div>
+       <div class="caption-item caption-item-4"></div>
+       <div class="caption-item caption-item-5"></div>
+      </div>
+     <div class="swiper-pagination swiper-pagination-bullets">
+       <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+       <span class="swiper-pagination-bullet"></span>
+       <span class="swiper-pagination-bullet"></span>
+       <span class="swiper-pagination-bullet"></span>
+        <span class="swiper-pagination-bullet"></span>
+       <span class="swiper-pagination-bullet"></span>
+     </div>
+  </div>
+</div> -->
+
+
+     </body>
+     </html>         
+   
+

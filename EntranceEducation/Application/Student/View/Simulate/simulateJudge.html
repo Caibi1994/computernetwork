@@ -1,0 +1,133 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__PUBLIC__/doExercise/css/jqmobo.css">
+		<script src="__PUBLIC__/doExercise/js/jquery.min.js"></script>
+		<script type="text/javascript">
+			k = "0";
+			var enterTime = "{$enterTime}";
+		</script>
+	</head>
+	<body>
+		<form id="form1" method="post" action="">
+			<div id="toptitle">
+				<h1 class="htitle">自由练习</h1>
+			</div>
+			<div id="divContent">
+				<fieldset class="fieldset" style="" id="fieldset1">
+					<div class="field ui-field-contain" id="div1" req="1" topic="1" data-role="fieldcontain" type="3">
+						<div class="field-label">
+							{$answerRecord.questionItem}.
+							<label style="float: right;">答题记录：<span id="answerRightNum">{$answerRecord.answerRightNum}</span>/<span id="answerNum">{$answerRecord.answerNum}</span> </label>
+							<img src="http://testet-public.stor.sinaapp.com{$item.questionPicPath|str_replace='/Public','',###}{$item.questionPicName}" alt="">				
+						</div>
+						<div class="ui-controlgroup">
+							<div class="ui-radio" id="choiceA" onclick="k = 'T';"><span class="jqradiowrapper"><a class="jqradio" href="javascript:;"></a></span>
+								<label for="q1_1">对<span id="opA"></span></label>
+							</div>
+							<div class="ui-radio" id="choiceB" onclick="k = 'F';"><span class="jqradiowrapper"><a class="jqradio" href="javascript:;"></a></span>
+								<label for="q1_1">错<span id="opB"></span></label>
+							</div>
+<!-- 							<div class="ui-radio" id="choiceC" onclick="k = 'C';"><span class="jqradiowrapper"><a class="jqradio" href="javascript:;"></a></span>
+								<label for="q1_1">C<span id="opC"></span></label>
+							</div>
+							<div class="ui-radio" id="choiceD" onclick="k = 'D';"><span class="jqradiowrapper"><a class="jqradio" href="javascript:;"></a></span>
+								<label for="q1_1">D<span id="opD"></span></label>
+							</div> -->
+						</div>
+						<div id="answerAera" name="answerAera">
+						</div>
+						<div id="explainAera" name="explainAera">
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			
+			<div class="footer" id="footer">
+				<div id="divSubmit1" style="padding: 10px; margin-top: -15px;">
+					<a id="ctlNext1" class="button blue" href="#answerAera">提交 </a>
+				</div>
+			</div>
+			<div style="margin-top:10px"></div>
+			<div class="footer">
+				<div id="divSubmit" style="padding: 10px; margin-top: -15px;">
+					<a class="button white" href="{:U('Random/random')}/chapter/{$_GET['chapter']}">下一题</a>
+				</div>
+
+			</div>
+<!-- 			<include file="{:U('/Random/commentArea')}?questionItem={$itemid}">
+			<div style="height:40px"></div> -->
+		</form>
+
+
+		<script type="text/javascript">
+			//用于控制选择后的效果
+			$(".ui-radio").click(function(event) {
+				$(".focuschoice").toggleClass('focuschoice');
+				$(".jqchecked").toggleClass('jqchecked');
+				$(this).toggleClass('focuschoice');
+				$(this).find('.jqradio').toggleClass('jqchecked');
+			});
+			$("#divSubmit1").click(function(e){
+				if (k == 0) {
+					alert('你还没有选择答案！');
+					return false;
+				}
+				//接下来往数据库发送数据
+				var ajaxData = {};
+				ajaxData['kk'] = "{$kk}"; // 用来解决一个特别难解决的位置问题
+				ajaxData['openid'] = "{$openid}"; //用户id	
+				ajaxData['itemid'] = "{$itemid}"; //题目的id
+				ajaxData['enterTime'] = "{$enterTime}";
+				ajaxData['answer'] = k; //用户选择的答案
+				ajaxData['lefeTime'] = "setInServer";
+				$.ajax({
+					cache: false,
+					type: "POST",
+					url: "{:U('Random/getRightAns')}",
+					dataType: "json",
+					data: ajaxData,
+					// timeout: 30000,
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						return false;
+					},
+					success: function(jsApiParameters) {
+						//alert("success");
+						if (jsApiParameters == '非法的请求方式' || typeof(jsApiParameters) == "undefined") {
+							alert("网络问题，请稍后答题！");
+							return false;
+						}
+						var rightAnswer = jsApiParameters['rightAnswer'];
+						var analysisPicPath = jsApiParameters['analysisPicPath'];
+						var analysisPicName = jsApiParameters['analysisPicName'];
+						var opANum = jsApiParameters['opANum'];
+						var opBNum = jsApiParameters['opBNum'];
+						var opCNum = jsApiParameters['opCNum'];
+						var opDNum = jsApiParameters['opDNum'];
+						var opAllNum = jsApiParameters['opAllNum'];
+						document.getElementById('answerAera').innerHTML = "标准答案：" + rightAnswer;
+						!analysisPicPath ? "" : document.getElementById('explainAera').innerHTML = "<img src=http://testet-public.stor.sinaapp.com" + analysisPicPath.slice(7) + analysisPicName + ">";
+						$('#footer').hide();
+
+						/*============ show option ==============*/
+						// document.getElementById('opA').innerHTML = "<progress value='" + opANum + "' max='" + opAllNum + "' class='piao'></progress>" + opANum + "人";
+						// document.getElementById('opB').innerHTML = "<progress value='" + opBNum + "' max='" + opAllNum + "' class='piao'></progress>" + opBNum + "人";
+						// document.getElementById('opC').innerHTML = "<progress value='" + opCNum + "' max='" + opAllNum + "' class='piao'></progress>" + opCNum + "人";
+						// document.getElementById('opD').innerHTML = "<progress value='" + opDNum + "' max='" + opAllNum + "' class='piao'></progress>" + opDNum + "人";
+
+						/*============== show answer record ========*/
+						// var rightAnswerNum = rightAnswer == k ? {$answerRecord.answerRightNum} + 1 : {$answerRecord.answerRightNum};
+						// document.getElementById('answerRightNum').innerHTML = rightAnswerNum;
+						// document.getElementById('answerNum').innerHTML = {$answerRecord.answerNum} + 1;
+					}
+				});
+			});
+		</script>
+		<script>
+		</script>
+	</body>
+
+</html>

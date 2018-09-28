@@ -1,0 +1,33 @@
+<div class="aright">
+    <form method="post" class="aform cl">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="5%" align="center">id</th>
+                    <th width="10%" align="center">考试名称</th>
+                    <th width="10%" align="center">开始时间</th>
+                    <th width="10%" align="center">考试时长</th>
+                    <th width="10%" align="center">是否开启</th>
+                    <th width="15%" align="center">提交人数</th>
+                    <th width="10%" align="center">未提交数</th>
+                    <th width="10%" align="center">详细信息</th></tr>
+                <volist name="examList" id="examList" empty="暂时没有数据" >
+                    <tr>
+                        <td style="padding-left: 20px;">{$examList['id']}</td>
+                        <td align="center">{$examList['title']}</td>
+                        <td align="center">{$examList.start_time|date="m-d H:i",###}</td>
+                        <td align="center">{$examList.set_time}</td>
+                        <td align="center">{$examList.is_on|is_on=###}</td>
+                        <td align="center">{$examList.id|getSubmitNum=###}</td>
+                        <td align="center">{$examList.id|getUnsubmitNum=###}</td>
+                        <td align="center">
+                            <a href="{:U('ExamUser/detail', array('id'=>$examList['id']))}">查看</a>
+                        </td>
+                    </tr>
+                </volist>  
+
+                
+            </tbody>
+        </table>
+    </form>
+</div>

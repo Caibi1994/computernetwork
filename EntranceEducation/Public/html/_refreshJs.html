@@ -1,0 +1,8 @@
+<script>
+  $(document.body).pullToRefresh().on("pull-to-refresh", function() {
+    setTimeout(function() {
+      location.reload();
+      $(document.body).pullToRefreshDone();
+    }, 1200);
+  });
+</script>

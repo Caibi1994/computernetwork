@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">布置作业</h1>
+    </header>
+
+    <div class="weui_cells weui_cells_form">
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">作业名称</label></div>
+        <div class="weui_cell_bd weui_cell_primary" id="homeworkName">
+          {$homeworkName|default="课后作业"}
+        </div>
+      </div>
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">截止时间</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <input id="deadtime" class="weui_input" type="datetime-local" value="" placeholder="请选择截止时间">
+        </div>
+      </div>
+    </div>
+    <div class="weui_cells_title">作业内容</div>
+    <div class="weui_cells weui_cells_form">
+      <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+          <textarea id="content" class="weui_textarea" placeholder="请输入作业内容" rows="3"></textarea>
+          <div class="weui_textarea_counter"><span id="count">0</span>/200</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="weui_btn_area">
+      <a class="weui_btn weui_btn_primary" href="javascript:" id="submit">确定</a>
+    </div>
+    <div id="test"></div>
+    <include file="./Public/html/_foot.html"/>
+    <include file="./Public/html/_refreshJs.html"/>
+    <script>
+
+    $(function(){
+      var max = 200;
+      $('#content').on('input', function(){
+         var text = $(this).val();
+         var len = text.length;
+         $('#count').text(len);
+         if(len > max){
+           $(this).closest('.weui_cell').addClass('weui_cell_warn');
+         }
+         else{
+           $(this).closest('.weui_cell').removeClass('weui_cell_warn');
+         }
+      });
+    }),
+    
+
+
+
+
+
+
+
+      $("#submit").click(function() {
+
+        var homeworkName = $('#homeworkName').html();
+        var deadtime = $('#deadtime').val();
+        var content = $('#content').val();
+        if(deadtime == '') $.toptip('请选择截止时间');
+        else if(content == '') $.toptip('请输入作业内容');
+        else $.confirm('您确定要布置作业吗?','确定布置？',function(){
+          $.showLoading('作业布置中');
+          setTimeout(function(){
+            //上传
+            url = "{:U('homework_handAssign')}";
+            data = {
+              homeworkName:homeworkName,
+              deadtime:deadtime,
+              content:content
+            }
+            $.post(url,data,function(res){
+              $("#test").html(res);
+            })
+            $.hideLoading();
+            $.toast('作业布置成功!');
+            $('#submit').hide();
+          },1000);
+        },function(){
+          //取消操作
+        });
+      });
+    </script>
+  </body>
+</html>

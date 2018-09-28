@@ -1,0 +1,57 @@
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>新生始业教育平台管理系统</title>
+        <link rel="stylesheet" href="__PUBLIC__/admin/css/admin.css">
+        <link rel="stylesheet" href="__PUBLIC__/admin/layui/css/layui.css">
+        <script src="__PUBLIC__/admin/layui/layui.js"></script>
+    </head>
+    
+    <body>
+        <div class="header">
+            <h2 class="z cl">
+                <a href="javascript:;">新生始业教育平台管理系统</a>
+            </h2>
+            <div class="y cl">
+                <a href="javascript:;"><?php echo $_SESSION['nickname'];?></a>
+                <a href="{:U('Login/logout')}">退出</a>
+            </div>
+        </div>
+        <div class="admin">
+            <div class="aleft">
+                <if condition="($_SESSION['type'] eq 1)"> 
+                    <h3>
+                        <i class="layui-icon" style="position: relative;right: 3px;top: 1px;font-size: 18px;color: #009688;"></i>学校管理员
+                    </h3>
+                    <ul class="cl">
+                        <li>
+                            <i class="layui-icon"></i>
+                            <a href="{:U('Exam/index')}">考试管理</a>
+                        </li>
+
+                        <li>
+                            <i class="layui-icon"></i>
+                            <a href="{:U('Question/index')}">题目管理</a>
+                        </li>
+                    </ul>
+               
+                </if>
+                <if condition="($_SESSION['type'] eq 2)"> 
+                    <h3>
+                        <i class="layui-icon" style="position: relative;right: 3px;top: 1px;font-size: 18px;color: #009688;"></i>学院管理员
+                    </h3>
+                </if>
+                <ul class="cl">
+                    <li>
+                        <i class="layui-icon"></i>
+                        <a href="{:U('User/index')}">用户信息</a></li>
+                    <li>
+                        <i class="layui-icon"></i>
+                        <a href="{:U('Exercise/index_new')}">自由练习</a></li>
+                    <li>
+                        <i class="layui-icon"></i>
+                        <a href="{:U('ExamUser/index')}">模拟考试</a></li>
+                </ul>
+            </div>

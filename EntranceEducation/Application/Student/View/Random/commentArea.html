@@ -1,0 +1,158 @@
+<html>
+
+	<head>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta charset="utf-8">
+		<title>试题评论</title>
+ 		<link href="__PUBLIC__/comment/photoswipe.css" rel="stylesheet">
+ 		<link href="__PUBLIC__/comment/layer.css" rel="stylesheet">
+ 		<link href="__PUBLIC__/comment/replaybox.css" rel="stylesheet">
+ 		<link href="__PUBLIC__/comment/add.css" rel="stylesheet">
+ 		<link href="__PUBLIC__/comment/userlevel.css" rel="stylesheet">
+ 		<link href="__PUBLIC__/comment/main.css" rel="stylesheet">
+		<style>
+			.on dl,
+			.in dl {
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: box;
+				display: flexbox;
+				display: flex;
+				flex-flow: row;
+			}
+			
+			dd {
+				flex: 1;
+				-webkit-box-flex: 1;
+			}
+			
+			.advtable {
+				background-color: white;
+			}
+			
+			.advtable a {
+				color: #0c6ad4;
+				font-size: 14px;
+			}
+			p{
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap center rel" style="padding-top:0;" id="top">
+<!-- 			<div class="wrap_ss rel" style="padding-top:0; width:100%;position:absolute;top:0; height:45px;z-index:1000;">
+				<header style="">
+					<form action="../s/s-7100" onsubmit="return $('.ss1').val()!='';">
+						<span class="rel rad" style="width: 223.08px;">
+                    <input type="text" name="wd" value="" style="width:100%" class="ss1 f13" placeholder="请输入关键字">
+                </span>
+						<button class="ss_btn1 f14 rad t_c" style="width: 57.2px;">搜索</button>
+					</form>
+				</header>
+
+			</div> -->
+			<!--公告 Start-->
+			<aside class="ggao c858" style="border-top:none; text-align: center;font-size: 30px; height: 60px;">
+				<em style="margin-top: 10px;">题目评论</em>
+			</aside>
+
+			<!--评论start-->
+			<div id="art-content">
+				
+				<foreach name="comment" item="comment" key="key">
+					<!--帖子start-->
+					<ul class="content" id="conart-2168703" style="position:relative;border-bottom: 1px solid #d6d6d6;">
+						<li class="on">
+							<dl class="clearfix">
+								<dd style="position: relative; width: 250px;">
+									
+                        			<em class="user-name">{$comment.name}：</em>
+                    													
+                        			<span class="c858"><em class="user-time">{$comment.time}</em></span>
+                        			<span class="c858 fr" style="max-width:40%;overflow:hidden;height:16px;"></span>
+                    				
+									<div class="f16" style="line-height:1.5;word-break:break-word;word-wrap:normal;">
+										<div id="contc-2168703">
+											<a class="user-comment">{$comment.comment}
+											<!-- <img class="user-face" src="__PUBLIC__/images/qqface/100.gif"> -->
+											</a>
+										</div>
+										<div class="contc-all" isshow="0" id="contcall-2168703"></div>
+										<div style="margin-top:5px;" class="slt">
+										</div>
+									</div>
+									<div class="gj c858 clearfix">
+										<!-- <span onclick="">
+                                			<i class="gj_za"></i>赞<em id="pr-2168703">41</em>
+                           		 		</span> -->
+										<span class="t_r" onclick="window.location.href='../Random/reply?commentId={$comment.id}'">
+                            				<i class="gj_p"></i>回复<em id="commentCount_2168703">(<?php echo M('random_reply')->where('commentId="'.$comment['id'].'"')->count();?>)</em>
+                        				</span>
+									</div>
+								</dd>
+							</dl>
+						</li>
+						<!--帖子end-->
+						<!--评论start->where('commentId="'.$comment[key][id].'"')-->
+
+						<?php
+							//判断有无回复
+							if($REPLY = M('random_reply')->where('commentId="'.$comment['id'].'"')->select()){
+								$reply = ture;
+								$num = M('random_reply')->where('commentId="'.$comment['id'].'"')->count();
+							}
+							else
+								$reply = false;
+						?>
+							<if condition="($reply)">
+								<?php for ($i=0;$i<$num;$i+=1){?>
+
+								<li class="in rel artcomment" id="comms_6015129" style="border-bottom: 1px solid #f1f1f1;">
+									<dl class="clearfix">
+										<div style="display: block; overflow: hidden; flex: 1;-webkit-box-flex:1">
+											<label style="color: #5a85ce; margin-bottom: 10px;">
+												<?php echo $REPLY[$i]['name'];?>:	
+                                    			<span class="fr c858 f12"><?php echo $REPLY[$i]['time'];?></span>
+                                			</label>
+											<p style="word-break:break-word;word-wrap:normal;">
+												<?php echo $REPLY[$i]['replyContent'];?>		
+											</p>
+										</div>
+									</dl>
+									<if condition="($i == 0)">
+										<i class="ping abs"></i>
+									</if>
+								</li>
+
+								<?php }?>
+							</if>
+					</ul>
+				</foreach>
+			</div>
+			<!--文章end-->
+			<footer class="clearfix t_c" id="navbuttom">
+				<ul>
+	<!-- 				<li class="bk rel" id="l">
+						<div class="arrow" style="left: 38.5px;"></div>
+						<i></i><em class="currentType-name">上一篇</em>
+					</li> -->
+					<li class="ft" onclick="window.location.href='comment/questionItem/{$_GET['questionItem']}'">
+						<i></i>再写一条
+					</li>
+					<li class="my" onclick="window.location.href='{:U('Random/random')}/chapter/{$_GET['chapter']}'">
+						<i></i>继续做题
+					</li>
+				</ul>
+			</footer>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title></title>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+  <include file="./Public/html/_refresh.html"/>
+  <header class="demos-header"> 
+   <h1 class="demos-title">积分详情</h1>
+  </header> 
+  <div class="weui_cells weui_cells_form"> 
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">姓名</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.name|default='null'}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">班级</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.class|default='null'}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">学号</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.number|default='null'}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">自由练习</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.doRanRightNum}/{$markInfo.doRanNum}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">随堂测试</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.classTestRightNum}/{$markInfo.classTestNum}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">课后作业</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.homeworkMark}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">课堂签到</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.signinNum}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">平台互动量</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.commu}
+    </div> 
+   </div>
+   <div class="weui_cell">
+    <div class="weui_cell_hd">
+     <label class="weui_label">微信互动量</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$markInfo.weixinMessageNum|default='0'}
+    </div> 
+   </div>
+   
+   
+ </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

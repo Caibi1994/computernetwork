@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">批改作业</h1>
+    </header>
+    <volist name="homeworkList" id="homeworkList" empty="没有要批改的作业">
+        <div class="weui_cells weui_cells_form" id="{$homeworkList.id}">
+          <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+              <div class="weui_uploader">
+                <div class="weui_uploader_hd weui_cell">
+                  <div class="weui_cell_bd weui_cell_primary">{$homeworkList.name}</div>
+                </div>
+                <div class="weui_uploader_bd">
+                  <ul class="weui_uploader_files">
+                    
+                    <notempty name="homeworkList.pic1Url">
+                      <li class="weui_uploader_file" style="background-image:url(http://testet-public.stor.sinaapp.com/{$homeworkList.pic1Url})"></li>
+                    </notempty>
+                    <notempty name="homeworkList.pic2Url">
+                      <li class="weui_uploader_file" style="background-image:url(http://testet-public.stor.sinaapp.com/{$homeworkList.pic2Url})"></li>
+                    </notempty>
+                    <notempty name="homeworkList.pic3Url">
+                      <li class="weui_uploader_file" style="background-image:url(http://testet-public.stor.sinaapp.com/{$homeworkList.pic3Url})"></li>
+                    </notempty>
+                    <notempty name="homeworkList.pic4Url">
+                      <li class="weui_uploader_file" style="background-image:url(http://testet-public.stor.sinaapp.com/{$homeworkList.pic4Url})"></li>
+                    </notempty>
+                    <notempty name="homeworkList.pic5Url">
+                      <li class="weui_uploader_file" style="background-image:url(http://testet-public.stor.sinaapp.com/{$homeworkList.pic5Url})"></li>
+                    </notempty>
+                    <notempty name="homeworkList.pic6Url">
+                      <li class="weui_uploader_file" style="background-image:url(http://testet-public.stor.sinaapp.com/{$homeworkList.pic6Url})"></li>
+                    </notempty>
+                  </ul>
+                </div>
+                <div style="float:right"><a href="javascript:getHomeworkPerson('{$homeworkList.id}_{$homeworkList.name}');" class="weui_btn weui_btn_mini weui_btn_primary open-popup" data-target="#half">评分</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </volist>
+    
+
+    <div id="half" class='weui-popup-container popup-bottom'>
+      <div class="weui-popup-modal">
+        <div class="toolbar">
+          <div class="toolbar-inner">
+            <a href="javascript:;" class="picker-button close-popup">取消</a>
+            <h1 class="title">评分</h1>
+          </div>
+        </div>
+        <div class="modal-content">
+          <div class="weui_grids">
+            <a href="javascript:getMark(3);" class="weui_grid js_grid close-popup" data-id="dialog">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/33.png" alt="">
+              </div>
+            </a>
+            <a href="javascript:getMark(4);" class="weui_grid js_grid close-popup" data-id="progress">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/44.png" alt="">
+              </div>
+            </a>
+            <a href="javascript:getMark(5);" class="weui_grid js_grid close-popup" data-id="msg">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/55.png" alt="">
+              </div>
+            </a>
+            <a href="javascript:getMark(0);" class="weui_grid js_grid close-popup" data-id="dialog">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/00.png" alt="">
+              </div>
+              <p class="weui_grid_label">
+                
+              </p>
+            </a>
+            <a href="javascript:getMark(1);" class="weui_grid js_grid close-popup" data-id="progress">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/11.png" alt="">
+              </div>
+              <p class="weui_grid_label">
+               
+              </p>
+            </a>
+            <a href="javascript:getMark(2);" class="weui_grid js_grid close-popup" data-id="msg">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/22.png" alt="">
+              </div>
+              <p class="weui_grid_label">
+               
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <include file="./Public/html/_foot.html"/>
+    <include file="./Public/html/_refreshJs.html"/>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+      $(document).ready(function(){
+          wx.config({
+              debug: false,
+              appId: '{$signPackage.appId}',
+              timestamp: {$signPackage.timestamp},
+              nonceStr: '{$signPackage.nonceStr}',
+              signature: '{$signPackage.signature}',
+              jsApiList: [
+                'previewImage',
+              ]
+          });
+
+          $('.weui_uploader_file').click(function(){
+            var picUrlArray = new Array();
+            var get = $(this).parent().children();
+            
+            get.each(function(i,n){
+              picUrlArray[i] = $(this).css('background-image').substring(4,$(this).css('background-image').length-1);
+            });
+
+            picJsonUrl = JSON.stringify(picUrlArray);
+
+            wx.previewImage({
+              urls: picJsonUrl,
+            });
+
+          });
+
+
+      });
+      
+
+
+
+       $(document).on("open", ".weui-popup-modal", function() {
+          console.log("open popup");
+        }).on("close", ".weui-popup-modal", function() {
+          console.log("close popup");
+        });
+
+
+        function getHomeworkPerson(person){
+          homeworkInfo = new Array();
+          homeworkInfo = person.split('_');  //字符串分割函数
+          personName   = homeworkInfo[1];
+          personWorkId = homeworkInfo[0];
+        }
+
+        function getMark(mark){
+            $.confirm("您确定要给"+personName+"本次作业评"+mark+"分吗?", "确认评分?", function(){
+              url = "{:U('homework_mark')}";
+              data = {
+                personWorkId : personWorkId,
+                mark:mark
+              };
+              $.post(url,data,function(res){
+                $.toast("评分成功!");
+              });
+              $('#'+personWorkId).hide();
+            }, function() {
+              //取消操作
+            });
+        }
+
+
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">签到菜单</h1>
+    </header>
+
+    <div class="bd">
+      <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="javascript:signinOnline();">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_city.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>在线签到</p>
+          </div>
+          <div class="weui_cell_ft"><if condition="$state"><i class="weui_icon_success"></i><else /> <i class="weui_icon_warn"></i></if></div>
+        </a>
+        <a class="weui_cell" href="{:U('signinView')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_search_bar.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>签到记录</p>
+          </div>
+          <div class="weui_cell_ft"><span class="demos-badge">{$signinNum|default='0'}</span></div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  wx.config({
+      debug: false,
+      appId: '{$signPackage.appId}',
+      timestamp: {$signPackage.timestamp},
+      nonceStr: '{$signPackage.nonceStr}',
+      signature: '{$signPackage.signature}',
+      jsApiList: [
+        'getLocation',
+      ]
+  });
+  function signinOnline(){
+    wx.ready(function(){
+      $.showLoading('正在获取地理位置');
+      setTimeout(function(){
+        //上传
+        wx.getLocation({
+          success:function(res){
+            upload(res);
+          }
+        });
+        $.hideLoading();
+      },4000);
+    });
+
+    function upload(location){
+      url = "{:U('signinOnline')}";
+      data = {
+        latitude:location.latitude,
+        longitude:location.longitude,
+        accuracy:location.accuracy
+      };
+        //上传
+      $.post(url,data,function(res){
+        if(res == 'close') $.toast('本次签到已经截止','cancel');
+        else if(res == 'signined') $.toast('你已经签到过了','text');
+        else if(res == 'success') $.toast('签到成功');
+        else $.toast('签到失败,请稍后重试','cancel');
+      })
+    }
+  }
+  
+
+</script>

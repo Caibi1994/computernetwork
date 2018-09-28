@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">随堂测试列表</h1>
+    </header>
+    <div class="weui_panel weui_panel_access">
+      <div class="weui_panel_bd">
+        <volist name="testList" id="testList" empty="没有测试信息">
+          <a href="{:U('testMenu')}/testid/{$testList.id}" class="weui_media_box weui_media_appmsg">
+            <div class="weui_media_bd">
+              <h4 class="weui_media_title">{$testList.testName|default="没有设置测试名称"}</h4>
+              <p class="weui_media_desc">截止时间:{$testList.deadtime|substr=5,11}</p>
+            </div>
+            <div class="weui_cell_ft alert">
+              <div><if condition="$testList.isSubmit eq true"><i class="weui_icon_success"></i>答对题数:{$testList.rightNum}/{$testList.queNum}<else /> <i class="weui_icon_warn"></i>您未提交</if></div>
+              <div><i class="weui_icon_info"></i>提交人数:{$testList.submitNum}/{$testList.stuNum}</div>
+            </div>
+          </a>  
+        </volist>          
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+    
+    <include file="./Public/html/_refresh.html"/>  
+    <header class='demos-header'>
+      <h1 class="demos-title">课后作业</h1>
+    </header>
+    <div class="weui_panel weui_panel_access">
+      <div class="weui_panel_bd">
+        <volist name="homework" id="homework" empty="没有布置作业">
+            <a href="{:U('Homework/homeworkMenu')}/homeworkId/{$homework.id}" class="weui_media_box weui_media_appmsg">
+              <div class="weui_media_bd">
+                <h4 class="weui_media_title">{$homework.homeworkname}</h4>
+                <p class="weui_media_desc">{$homework.content}</p>
+              </div>
+               <div class="weui_cell_ft alert">
+                  <if condition="$homework.isSubmit eq '未提交'"> 
+                    <div><i class="weui_icon_warn"></i>你还未提交</div>
+                    <elseif condition="$homework.isSubmit eq '未批改'"/>
+                    <div><i class="weui_icon_success_circle"></i>已提交|未批改</div>
+                    <else /> 
+                    <div><i class="weui_icon_success"></i>已提交|得分:{$homework.isSubmit}</div>
+                  </if>
+
+                <div><i class="weui_icon_info"></i>提交人数：&nbsp&nbsp{$homework.submitNum}</div>
+              </div>
+            </a>            
+        </volist>
+      </div>
+    </div>
+  <script src="__PUBLIC__/lib/jquery-2.1.4.js"></script>
+  <script src="__PUBLIC__/js/jquery-weui.js"></script>
+  <include file="./Public/html/_refreshJs.html"/>
+  </body>
+
+</html>
+<include file="./Public/html/_foot.html"/>
+

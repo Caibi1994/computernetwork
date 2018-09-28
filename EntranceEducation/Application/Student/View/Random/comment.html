@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta charset="utf-8">
+		<title>评论</title>
+		<script src="__PUBLIC__/comment/jquery-2.1.4.min.js"></script>
+		<script src="__PUBLIC__/comment/layer.m2.js"></script>
+		<script src="__PUBLIC__/comment/utils.js"></script>
+		<script type="text/javascript">
+			var __public__ = 	"__PUBLIC__";//在js文件中调用这个变量
+		</script>
+
+		<script src="__PUBLIC__/comment/qface.js"></script>
+		<link href="__PUBLIC__/comment/layer.css" rel="stylesheet">
+		<link href="__PUBLIC__/comment/settop.css" rel="stylesheet">
+		<link href="__PUBLIC__/comment/add.css" rel="stylesheet">
+		<link href="__PUBLIC__/comment/addarticle.css" rel="stylesheet">		
+		<script src="__PUBLIC__/comment/jquery.ui.widget.mini.js"></script>
+		<script>
+			$(document).ready(function() {
+				/*表情按钮加载表情*/
+				$(document).on("click", "#btn-qqface", function() {
+						if ($("#div-qqfaces").attr("isloaded") == "1") {
+							$("#div-qqfaces").toggle();
+							$("#div-articletype").hide();
+							return;
+						}
+						var facehtml = loadfacehtml();
+						$("#div-qqfaces").html(facehtml).show();
+						$("#div-articletype").hide();
+						$("#div-qqfaces").attr("isloaded", "1");
+					})
+					/*点击输入框，隐藏表情*/
+				$(document).on("click", "#txtContentAdd", function() {
+						$("#div-qqfaces").hide();
+					})
+					/*点击输入框，隐藏表情*/
+				$(document).on("click", "#btn-lblselect", function() {
+					$("#div-qqfaces").hide();
+					$("#div-articletype").toggle();
+				})
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="rd ">
+			<textarea id="txtContentAdd" name="txtContentAdd" placeholder="随便说两句..." style="padding:2%;width:96%;height:130px;"></textarea>
+			<div class="btnboxlist">
+				<a href="javascript:;" id="btn-qqface" class="btnboxa">
+					<em class="btnlblface"></em>表情
+				</a>
+				<input value="发表" type="button" id="fabiao"  class="btn-addart">
+			</div>
+			<div class="rd3">
+				<div id="div-qqfaces" isloaded="0" style="display:none;">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on("click", "#fabiao", function() {
+			if($("#txtContentAdd").val() == ""){
+				alert('请输入内容...');
+				return false;
+			}
+			//定义变量
+			var comment = $("#txtContentAdd").val();
+			var questionItem = "{$_GET['questionItem']}" ;
+			// 将数据post给后台
+			url = "{:U('Random/handComment')}";
+			data = {
+				questionId:questionItem,
+				comment:comment
+			};
+			showLoadingUI("提交中");
+			setTimeout(function() {			
+				$.post(url,data,function(data,states){
+					if(data.status == 'success'){
+						// alert("评论成功");	   
+						layerClose();
+						window.location.href="{:U('Random/commentArea')}?questionItem={$_GET['questionItem']}";
+					}else{
+						alert(data.status);
+						layerClose();
+					}
+				});
+			}
+			,1000)
+		});
+	});
+</script>
+
+
+

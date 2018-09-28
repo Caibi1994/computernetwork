@@ -1,0 +1,132 @@
+<!-- 试题列表 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <meta charset="utf-8">
+    <title>选择试题</title>
+    <include file="./Public/weui2.0/__head.html"/>
+    <link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+    <script src="__PUBLIC__/font/iconfont.js"></script>
+    <style type="text/css">
+      .bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+      .title {background-color:#fbf9fe; color: #476777;}
+      .bar .icon {margin: 10px 0; padding: 0; }
+            /*.icon {width: 20px; height: 20px}*/
+      .picker-button {font-size: 14px; color: #3d4145;}
+    </style>
+    <style>
+        .cell_top{margin-top:0px;}
+        .quesId{display:none;}
+    </style>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">选择试题</h1>
+    </header>
+    <volist name="quesItem" id="quesItem" empty="没有试题信息">
+      <div class="weui_cells weui_cells_form cell_top">
+      <div class="content">
+        <div class="weui_cell weui_cell_switch">
+          <div class="weui_cell_hd weui_cell_primary">{$i}.</div>
+          <div class="weui_cell_ft">
+              <input class="weui_switch" type="checkbox" >
+              <div class="quesId">{$quesItem.id}</div>
+          </div>
+        </div>
+<!--         <div class="weui_cell weui_article" style="padding:0px 15px;">
+          <img src="http://testet-public.stor.sinaapp.com{$result.questionPicPath|str_replace='/Public','',###}{$result.questionPicName}" alt="">
+        </div> -->
+        <div class="c-pic">
+          <span class="weui-badge" style="margin-right: 5px;">{$quesItem.type}</span>
+          {$quesItem.contents|repleace_question_image=###}
+        </div>
+        <div class="c-table">
+          <!-- option exit -->
+          <if condition="$quesItem.option_a neq ''">
+            <a href="javascript:;">
+              <div class="option-area" id="option-a">
+                  <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-a"></use></svg></span>
+                  <lable class="option-contents">{$quesItem.option_a}</lable>
+              </div>
+            </a>
+          </if>
+
+          <if condition="$quesItem.option_b neq ''">
+            <a href="javascript:;">
+              <div class="option-area" id="option-b">
+                  <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-b"></use></svg></span>
+                  <lable class="option-contents">{$quesItem.option_b}</lable>
+              </div>
+            </a>
+          </if>
+
+          <if condition="$quesItem.option_c neq ''">
+            <a href="javascript:;">
+              <div class="option-area" id="option-c">
+                  <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-c"></use></svg></span>
+                  <lable class="option-contents">{$quesItem.option_c}</lable>
+              </div>
+            </a>
+          </if>
+
+          <if condition="$quesItem.option_d neq ''">
+            <a href="javascript:;">
+              <div class="option-area" id="option-d">
+                  <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+                  <lable class="option-contents">{$quesItem.option_d}</lable>
+              </div>
+            </a>
+          </if>
+
+          <if condition="$quesItem.type eq '2'">
+            <a href="javascript:;">
+              <div class="option-area" id="option-d">
+                  <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+                  <lable class="option-contents">对</lable>
+              </div>
+            </a>
+            <a href="javascript:;">
+              <div class="option-area" id="option-d">
+                  <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+                  <lable class="option-contents">错</lable>
+              </div>
+            </a>
+          </if>
+
+        </div> 
+      </div>          
+      </div>
+    </volist>
+    <div style="position:fixed;bottom:30px;right:16px">
+      <a class="weui_btn weui_btn_primary weui_btn_mini" href="javascript:" id="submit">确定<span id="number"></spna></a>
+    </div>  
+    
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+$("input[type='checkbox']").click(function() {
+    var num = $(":checked").length;
+    $('#number').html(num);
+});
+$('#submit').click(function(){
+    if($('#number').html() == '' || $('#number').html() == 0) {
+      $.toptip('你没有选择试题','warning'); return false;
+    }
+    var quesId = '';
+    $(":checked").each(function(){
+      quesId += '_'+$(this).siblings('.quesId').html();
+    });
+    if(quesId === '')
+      $.toptip('你没有选择试题','warning');
+    else
+      window.location.href="{:U('test_class_list')}/quesId/"+quesId;
+
+})
+</script>

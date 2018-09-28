@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title></title>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+  <header class="demos-header"> 
+   <h1 class="demos-title">积分权重</h1>
+  </header> 
+  <form action="{:U('setMarkWeight')}" method="post">
+   <div class="weui_cells_title">每个项目的权重</div>
+   <div class="weui_cells weui_cells_form">
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">注册奖励</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="register" value="{$weight.register}" type="number" required="required">
+    </div> 
+   </div>
+   <div class="weui_cell">
+    <div class="weui_cell_hd">
+     <label class="weui_label">微信互动</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="wexinMessage" type="number" value="{$weight.weixinMessage}" required="required"> 
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">练习答题</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="doRan" value="{$weight.doRan}" type="number" required="required" />
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">练习正确</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="doRanRight" value="{$weight.doRanRight}" type="number" required="required" />
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">平台互动</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="comReply" value="{$weight.comReply}" type="number" required="required" />
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">随堂测试</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="classTest" value="{$weight.classTest}" type="number" required="required" />
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">测试正确</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="classTestRight" value="{$weight.classTestRight}" type="number" required="required" />
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">在线签到</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="signin" value="{$weight.signin}" type="number" required="required" />
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">课后作业</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" name="homework" value="{$weight.homework}" type="number" required="required" />
+    </div> 
+   </div>
+  </div>
+  <div class="weui_btn_area">
+    <input class="weui_btn weui_btn_primary" type="submit" value="确定"/>
+  </div>
+ </form>
+    
+ </body>
+</html>
+<include file="./Public/html/_foot.html"/>

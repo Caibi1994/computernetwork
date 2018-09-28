@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="__PUBLIC__/admin/wangEditor/css/wangEditor.min.css">
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/wangEditor/js/wangEditor.min.js"></script>
+<style type="text/css">
+.tpt_sels a{padding-right:15px;position:relative}
+.tpt_sels a{padding:0 20px 0 8px;color:#3B6268;background:#FFFFBA;border:1px #F8E06E solid;margin-right:5px;margin-bottom:5px;font-size:14px;height:26px;line-height:26px;display:block;float:left}
+.tpt_pres a.selected{padding:0 8px;color:#3B6268;background:#FFFFBA;border:1px #F8E06E solid;margin-right:5px;margin-bottom:5px;font-size:14px;height:26px;line-height:26px;display:block;float:left}
+.tpt_pres a{padding:0 8px;color:#fff;background:#5AC7A9;border:1px #5AC7A9 solid;margin-right:5px;margin-bottom:5px;font-size:14px;height:26px;line-height:26px;display:block;float:left}
+.tpt_sels a em{width: 12px;height: 12px;font-style: normal;display: block;position: absolute;top: 7px;right: 4px;z-index: 2;background: url(__PUBLIC__/admin/img/sx.png) no-repeat 0 0;}
+.wangEditor-menu-container .menu-item a {padding: 12px 0;}
+.wangEditor-menu-container .menu-item {height: 37px;width: 37px;}
+.wangEditor-menu-container .menu-group {padding: 0;}
+.wangEditor-container {border: 1px solid #e6e6e6;}
+input{
+    border:0;
+}
+input.text{text-align:center;}
+</style>        
+<div class="aright">
+    <div class="arz cl" style="font-size: 1.5rem;">{$examList}题目组成</div>
+    <form method="post" action="" class="aform cl">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <!-- <th width="5%" align="center">id</th> -->
+                    <th width="10%" align="center">章节名称</th>
+                    <th width="5%" align="center">题目总量</th>
+                    <th width="10%" align="center">题数</th>
+                </tr>
+                <volist name="chapterList" id="chapterList" key='k' empty="暂时没有数据" >
+                    <tr>
+                        <!-- <td style="padding-left: 20px;">{$examList.id}</td> -->
+                        <td style="padding-left: 20px;text-align: center; ">{$chapterList.chapter}</td>
+                        <td align="center">{$chapterList.maxNum}</td>
+                        <td align="center"><input  type="number" name="quesNum_{$chapterList.id}" min="0" max="{$chapterList.maxNum}" value="{$chapterList.selectNum}" required="required" style="width: 100%;height: 100%;text-align: center;"/></td>
+                   </tr>
+                </volist>  
+
+                
+            </tbody>
+        </table>
+   
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="margin: 20 35%;">
+          <button id="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
+          <button class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
+        </div>
+    </div>
+
+     </form>
+</div>
+
+<script type="text/javascript">
+
+
+</script>
+

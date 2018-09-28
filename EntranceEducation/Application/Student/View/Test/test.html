@@ -1,0 +1,137 @@
+<!-- 随堂测试，测试题目 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <style>
+        .cell_top{margin-top:0px;}
+        .answer{float: right;right: 15px;margin-top: 5px;margin-bottom: 5px;}
+        .answerArea{margin-left: -15px;}
+        .choose{width: 25%;}
+        .quesId{display: none;}
+    </style>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">在线测试</h1>
+    </header>
+    <volist name="quesList" id="quesList" empty="没有测试题目">
+      <div class="weui_cells weui_cells_form cell_top ">
+        <div class="" style="padding:0px 15px;">{$i}</div>
+        <div class="weui_cell weui_article" style="padding:0px 15px;">
+          <img src="http://testet-public.stor.sinaapp.com{$quesList.questionPicPath|str_replace='/Public','',###}{$quesList.questionPicName}" alt="">
+        </div>
+        <div class="weui_cells weui_article cell_top" style="padding:0px 15px; left:15px;">
+        <div><span id="{$quesList.id}" class="answerArea"></span><span class="quesId">{$quesList.id}</span>
+          <a class="weui_btn weui_btn_primary weui_btn_mini answer open-popup" href="javascript:answer({$quesList.id});" data-target="#half">答题</a>
+        </div>  
+        </div>
+      </div>
+    </volist>
+    
+    <div class="weui_btn_area">
+      <a class="weui_btn weui_btn_primary" href="javascript:" id="submit">提交</a>
+    </div>
+    <div style="height:100px";></div>
+    
+
+    <div id="half" class='weui-popup-container popup-bottom'>
+      <div class="weui-popup-modal">
+        <div class="toolbar">
+          <div class="toolbar-inner">
+            <a href="javascript:;" class="picker-button close-popup">关闭</a>
+            <h1 class="title">标题</h1>
+          </div>
+        </div>
+        <div class="modal-content">
+          <div class="weui_grids">
+            <a href="javascript:choose('A');" class="weui_grid js_grid choose close-popup" data-id="dialog">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/aa.png" alt="">
+              </div>
+            </a>
+            <a href="javascript:choose('B');" class="weui_grid js_grid choose close-popup" data-id="progress">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/bb.png" alt="">
+              </div>
+            </a>
+            <a href="javascript:choose('C');" class="weui_grid js_grid choose close-popup" data-id="progress">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/cc.png" alt="">
+              </div>
+            </a>
+            <a href="javascript:choose('D');" class="weui_grid js_grid choose close-popup" data-id="msg">
+              <div class="weui_grid_icon">
+                <img src="__PUBLIC__/images/dd.png" alt="">
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="test"></div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+
+
+$(document).on("open", ".weui-popup-modal", function() {
+  console.log("open popup");
+}).on("close", ".weui-popup-modal", function() {
+  console.log("close popup");
+});
+
+
+function answer(id){
+  quesId = id;
+}
+
+function choose(choice){
+  $('#'+quesId).html('你的答案：'+choice);
+}
+
+$('#submit').click(function(){
+  var answer = '';
+  var quesIdStr = '';
+  $('.answerArea').each(function(){
+    answer += ($(this).html().substr(5));
+    answer += '_';
+  });
+  $('.quesId').each(function(){
+    quesIdStr += $(this).html();
+    quesIdStr += '_';
+  });
+
+  if((answer.length) !== $('.answerArea').length * 2)  $.toptip('请完成你的题目！');
+  else if(answer.length == 0) $.toptip('没有选择答案！');
+  else 
+    $.confirm("您确定要给提交本次测试", "确认提交?", function(){
+      $.showLoading('试题提交中');
+      setTimeout(function(){
+        url = "{:U('testSubmit')}";
+        data = {
+          answer:answer,
+          quesId:quesIdStr,
+        };
+        $.post(url,data,function(res){
+          if(res == 'failure'){
+            $.hideLoading();
+            $.toast('提交失败','cancel');
+          }else{
+            $.hideLoading();
+            $.toast('提交成功!');
+            $('#submit').hide();
+            window.location.href="{:U('testResult')}/result/"+res;
+          }
+        });
+      },function(){
+        //取消操作
+      });
+    });
+});
+</script>
+

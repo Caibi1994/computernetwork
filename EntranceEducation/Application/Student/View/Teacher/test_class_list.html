@@ -1,0 +1,64 @@
+<!-- 试题列表 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <meta charset="utf-8">
+    <title>选择班级</title>
+    <!-- <include file="./Public/weui2.0/__head.html"/> -->
+    <script src="__PUBLIC__/font/iconfont.js"></script>
+
+    <style>
+        .cell_top{margin-top:0px;}
+        .banji{margin-right: 200px;}
+    </style>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">选择班级</h1>
+    </header>
+    <volist name="teacherClass" id="teacherClass" empty="没有班级信息">
+      <div class="weui_cells weui_cells_form cell_top">
+      
+        <div class="weui_cell weui_cell_switch">
+          <div class="weui_cell_hd weui_cell_primary">{$i}.</div>
+          <div class="banji">{$teacherClass["class"]}</div>
+          <div class="weui_cell_ft">
+            <input class="weui_switch" type="checkbox" >
+            <div class="banji">{$teacherClass["class"]}</div>
+          </div>
+        </div>
+             
+      </div>          
+      
+    </volist>
+    <div style="position:fixed;bottom:30px;right:16px">
+      <a class="weui_btn weui_btn_primary weui_btn_mini" href="javascript:" id="submit">确定<span id="number"></spna></a>
+    </div>  
+    
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+$("input[type='checkbox']").click(function() {
+    var num = $(":checked").length;
+    $('#number').html(num);
+});
+$('#submit').click(function(){
+    if($('#number').html() == '' || $('#number').html() == 0) {
+      $.toptip('你没有选择班级','warning'); return false;
+    }
+    var banji = '';
+    $(":checked").each(function(){
+      banji += '_'+$(this).siblings('.banji').html();
+    });
+    if(banji === '')
+      $.toptip('你没有选择班级','warning');
+    else
+      window.location.href="{:U('test_assign')}/banji/"+banji;
+
+})
+</script>

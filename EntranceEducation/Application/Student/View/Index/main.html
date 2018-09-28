@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+	    <include file="./Public/weui2.0/__head.html"/>
+        
+        <link rel="stylesheet" href="__PUBLIC__/css/style.css">
+	    <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+    	<style type="text/css">
+			.weui-grid {padding:24px 10px; } 
+			.weui-footer {margin: 15px 0; } 
+			.annoce {font-size: 14px; text-align: center;}
+			.separ {margin: 0 5px;}
+			.weui-cells__title {padding-top: 0.3em;margin-top: 0; color: #000; border-top: 1px solid #d9d9d9}
+			.icon {width: 25px; height: 25px; float: left; margin-top: 0; margin-right: 5px; vertical-align: -0.15em; fill: currentColor; overflow: hidden; }
+            .weui-grid__icon {width: 25px; height: 25px; margin: 0 auto; } 
+            .weui-grid__icon+.weui-grid__label{margin-top: 15px;} 
+        </style>
+        <script src="__PUBLIC__/font/iconfont.js"></script>
+
+    <body ontouchstart>
+       
+       	<div class="jiben">
+		    <a class="" href="javascript:;">
+		        <div class="tx_box">
+		            <div class="tx">
+		                <img class="tx" src="{$stu_info.headimgurl|default='__PUBLIC__/images/newer/ieee_logo.jpg'}"></div>
+		            <ul>
+		            	<li>{$stu_info.name|default='张电子'}</li>
+		                <li class="info">
+		                	<span>{$stu_info.class|default='浙江'}</span>
+		                	<span>{$stu_info.number|default='杭州'}</span>
+                            <br/>
+                            <span>积分：{$stu_info.lastMark}</span>&nbsp;
+                            <span>排名：{$stu_info.ranking}/{$stu_info.stuNum}</span>
+		                </li>
+		            </ul>
+		            
+		        </div>
+		    </a>
+		    <div class="clearfix"></div>
+		</div>
+		
+        <!-- <div class="annoce">公告<span class="separ">|</span>距平台投入使用<span id="t_d">00天</span> <span id="t_h">00时</span> <span id="t_m">00分</span><span id="t_s">00秒</span></div> -->
+        
+		<div class="weui-cells__title">课前</div>
+
+        <div class="weui-grids">
+            <a href="#" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+<!--                     <svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon_nav_city"></use></svg> -->
+                    <img src="__PUBLIC__/images/download.png">
+                </div>
+                <p class="weui-grid__label">资料下载</p>
+            </a>        
+            <a href="{:U('Exercise/index')}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+                    <svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-exercise"></use></svg>
+                </div>
+                <p class="weui-grid__label">自由练习</p>
+            </a>
+            <a href="{:U('Rework/chose')}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">                   
+                    <svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-mistakebook"></use></svg>  
+                </div>
+                <p class="weui-grid__label">错题回顾</p>
+            </a>            
+        </div>
+
+        <div class="weui-cells__title" style="border: 0;">课中</div>
+        <div class="weui-grids">
+            <a href="{:U('Signin/index')}/openId/{$openId}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+<!--                     <svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon_nav_city"></use></svg> -->
+                    <img src="__PUBLIC__/images/icon_nav_city.png">
+                </div>
+                <p class="weui-grid__label">在线签到</p>
+            </a>             
+            <a href="{:U('Test/testList')}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+                    <svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-simulation"></use></svg>
+                </div>
+                <p class="weui-grid__label">随堂测试</p>
+            </a>
+        </div>
+
+		<div class="weui-cells__title" style="border: 0;">课后</div>
+        <div class="weui-grids">
+<!--             <a href="{:U('Record/record')}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+                    <svg class="icon" aria-hidden="true">
+                        <use xmlns:xlink="" xlink:href="#icon-lianxi"></use>
+                	</svg></div>
+                <p class="weui-grid__label">答题记录</p>
+            </a> -->
+            <a href="{:U('Homework/index')}/openId/{$openId}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">                   
+                    <svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-xueshenggongzuoguanli"></use></svg>  
+                </div>
+                <p class="weui-grid__label">课后作业</p>
+            </a>             
+            <a href="{:U('Collect/recordList')}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+                    <svg class="icon" aria-hidden="true">
+                        <use xmlns:xlink="" xlink:href="#icon-shoucang1"></use>
+                	</svg></div>
+                <p class="weui-grid__label">我的收藏</p>
+            </a>            
+            <a href="{:U('Mark/markClass')}" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+                    <svg class="icon" aria-hidden="true">
+                        <use xmlns:xlink="" xlink:href="#icon-rank"></use>
+                    </svg></div>
+                <p class="weui-grid__label">积分排名</p>
+            </a>
+           
+
+           <!--  <a href="javascript:alert('尚未开放！');" class="weui-grid js_grid">
+                <div class="weui-grid__icon">
+                    <svg class="icon" aria-hidden="true">
+                        <use xmlns:xlink="" xlink:href="#icon-exam"></use>
+                    </svg></div>
+                <p class="weui-grid__label">考试</p>
+            </a> -->
+        </div>
+
+
+
+        
+        <div class="weui-footer">
+            <p class="weui-footer__links">
+                <a href="" class="weui-footer__link">计算机网络平台 首页</a></p>
+            <p class="weui-footer__text">Copyright © 2017 浙江工商大学信电学院“私人订制”</p>
+        </div>
+        
+        
+        <include file="./Public/weui2.0/__foot.html"/>
+        <script>
+        	$(function() {
+                FastClick.attach(document.body);
+            });
+        </script>
+        <script src="__PUBLIC__/font/iconfont.js"></script>
+    </body>
+
+</html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+    wx.config({
+      debug: false,
+      appId: 'wx913b2486f97088cb',
+      timestamp: '{$signPackage.timestamp}',
+      nonceStr: '{$signPackage.nonceStr}',
+      signature: '{$signPackage.signature}',
+      jsApiList: [
+        'getLocation',
+      ]
+    });
+   
+    function signinOnline(){
+        wx.ready(function(){
+            $.showLoading('正在获取地理位置');
+            setTimeout(function(){
+                wx.getLocation({
+                    success:function(res){
+                        // console.log(res);
+                        upload(res);
+                    }
+
+                });
+                
+                $.hideLoading();
+            },4000);
+        });
+
+        function upload(location){
+            url = "{:U('signinOnline')}";
+            data = {
+                latitude:location.latitude,
+                longitude:location.longitude,
+                accuracy:location.accuracy
+            };
+        //上传
+            $.post(url,data,function(res){
+                if(res == 'close') $.toast('本次签到已经截止','cancel');
+                else if(res == 'signined') $.toast('你已经签到过了','text');
+                else if(res == 'success') $.toast('签到成功');
+                else $.toast('签到失败,请稍后重试','cancel');
+            })
+    }
+
+
+
+
+
+
+    }
+   
+</script>
+<script>
+  /*function GetRTime(){
+    var EndTime= new Date('2017/09/13 00:00:00');
+    var NowTime = new Date();
+    var t =EndTime.getTime() - NowTime.getTime();
+    var d=0;
+    var h=0;
+    var m=0;
+    var s=0;
+    if(t>=0){
+      d=Math.floor(t/1000/60/60/24);
+      h=Math.floor(t/1000/60/60%24);
+      m=Math.floor(t/1000/60%60);
+      s=Math.floor(t/1000%60);
+    }
+ 
+    document.getElementById("t_d").innerHTML = d + "天";
+    document.getElementById("t_h").innerHTML = h + "时";
+    document.getElementById("t_m").innerHTML = m + "分";
+    document.getElementById("t_s").innerHTML = s + "秒";
+  }
+  setInterval(GetRTime,0);*/
+</script>

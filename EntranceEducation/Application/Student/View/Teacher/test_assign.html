@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+  <body>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">发布测试</h1>
+    </header>
+    
+    <div class="weui_cells weui_cells_form">
+
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">测试名称</label></div>
+        <div class="weui_cell_bd weui_cell_primary" id="testName">
+          {$assignArray.testName|default='随堂测试'}
+        </div>
+      </div>
+
+
+
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">截止时间</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <input id="deadtime" class="weui_input" type="datetime-local" value="" placeholder="">
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="weui_cells_title">题目数量</div> -->
+    <div class="weui_cells weui_cells_form">
+      <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+          <div id="content" class="weui_textarea" placeholder="请输入作业内容" rows="3">题目数量：{$assignArray.quesNumber|default='0'}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="weui_btn_area">
+      <a class="weui_btn weui_btn_primary" href="javascript:" id="submit">确定</a>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+$('#submit').click(function(){
+  var deadtime = $('#deadtime').val();
+  // var deadtime = '2016-2-2';
+  var testName = $('#testName').html();
+  var testBanji = "{$assignArray.banji}";
+  var testQuesId = "{$assignArray.quesId}";
+  if(deadtime == '') {$.toptip('请选择测试截止时间'); return false;}
+  $.confirm('您确定要发布测试吗?','确定发布',function(){
+    $.showLoading('测试发布中');
+    setTimeout(function(){
+      //上传
+      url = "{:U('Teacher/test_add')}";
+      data = {
+        deadtime:deadtime,
+        testName:testName,
+        testBanji:testBanji,
+        testQuesId:testQuesId,
+      };
+      $.post(url,data,function(res){
+        if(res == 'failure'){
+          $.hideLoading();
+          $.toast('测试发布失败','cancel');
+        }else{
+          $.hideLoading();
+          $.toast('测试发布成功!');
+          $('#submit').hide();
+          window.location.href="{:U('Teacher/test_list')}";
+        }
+      })
+      
+    },4000);
+  },function(){
+    //取消操作
+  });
+
+})
+</script>

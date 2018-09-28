@@ -1,0 +1,63 @@
+<style>
+	input{
+		border: 0;
+		height: 200px;
+		width: 100px;
+		word-break:break-all;
+	}
+	textarea{
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+		border: 0;
+	}
+
+</style>
+<div class="aright">
+
+<fieldset class="layui-elem-field layui-field-title" style="margin: 20px 30px 20px 20px;">
+  <legend>添加题目</legend>
+</fieldset>
+
+<form method="post" action="" class="aform cl">
+	<table width="100%">
+		<tbody>
+                <tr>
+                    <th width="8%" align="center">题目章节</th>
+                    <th width="18%" align="center">题目类型(1单选 2判断 3多选)</th>
+                    <th width="25%" align="center">题干内容</th>
+                    <th width="9%" align="center">选项A</th>
+                    <th width="9%" align="center">选项B</th>
+                    <th width="9%" align="center">选项C</th>
+                    <th width="9%" align="center">选项D</th>
+                    <th width="10%" align="center">正确选项</th>
+                </tr>
+                <tr>
+                    <td align="center"><input  type="text" name="chapter" required style="width: 100%;height: 100%;text-align: center;"/></td>
+                    <td align="center"><input  type="text" name="type" required style="width: 100%;height: 100%;text-align: center;"/></td>
+                    <td align="center"><textarea rows="5" cols="68" required name="contents"></textarea></td>
+                    <td align="center"><textarea rows="5" cols="18" name="option_a"></textarea></td>
+                    <td align="center"><textarea rows="5" cols="18" name="option_b"></textarea></td>
+                    <td align="center"><textarea rows="5" cols="18" name="option_c"></textarea></td>
+                    <td align="center"><textarea rows="5" cols="18" name="option_d"></textarea></td>
+                    <td align="center"><textarea rows="5" cols="18" name="right_answer" required></textarea></td>
+                </tr>
+                <tr>
+			</tr>
+
+
+		</tbody>
+	</table>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="margin: 20 35%;">
+          <button id="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
+          <button class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
+        </div>
+    </div>
+
+</form>
+<script>
+
+</script>
+</div>

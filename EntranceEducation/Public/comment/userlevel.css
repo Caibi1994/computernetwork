@@ -1,0 +1,38 @@
+.vicon {
+    background: url('/content/images/group11/dj.png') no-repeat;
+    background-size: 240px 45px;
+    width: 16px;
+    height: 16px;
+    right: -7px;
+    bottom: -7px;
+    position: absolute;
+}
+.v1 {
+    background-position: -29px -15px;
+}
+.v2 {
+    background-position: -49px -15px;
+}
+.v3 {
+    background-position: -69px -15px;
+}
+.v4 {
+    background-position: -89px -15px;
+}
+.v5 {
+    background-position: -108px -15px;
+}
+.v6 {
+    background-position: -128px -15px;
+}
+.v7 {
+    background-position: -148px -16px;
+}
+.v8 {
+    background-position: -168px -16px;
+}
+.v9 {
+    background-position: -187px -16px;
+}
+.userlevel {position:absolute;width:20px;height:20px;right:-6px;bottom:-6px;}
+.icon-userlevel-mgr {background:url(http://i.pengxun.cn/content/images/group11/icon-mgr.png);background-size: 20px;}

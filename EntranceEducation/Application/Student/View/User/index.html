@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta http-equiv="refresh" content="3;url=http://722.testroom.applinzi.com/EntranceEducation/index.php/User/index">
+  <title></title>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+  <!--  <include file="./Public/html/_refresh.html"/> -->
+  <header class="demos-header"> 
+   <h1 class="demos-title">我的信息</h1>
+  </header> 
+  <div class="weui_cells weui_cells_form"> 
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">姓名</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$stu_info.name|default="null"}
+    </div> 
+   </div>
+   <div class="weui_cell">
+    <div class="weui_cell_hd">
+     <label class="weui_label">班级</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$stu_info.class|default="null"}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">学号</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$stu_info.number|default="null"}
+    </div> 
+   </div>
+
+ </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<!-- <include file="./Public/html/_refreshJs.html"/> -->

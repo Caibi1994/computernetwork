@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<include file="./Public/weui2.0/__head.html"/>
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+		<style type="text/css">
+			.bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+			.title {background-color:#fbf9fe; color: #476777;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            .weui-dialog__btn {color: #4bc2ff;}
+            /*.icon {width: 20px; height: 20px}*/
+		</style>
+	</head>
+	<body>
+		<header class="bar bar-nav">
+	        <div class="title">{$examItem.seqid}/{$quesList|count=###}</div>
+	        <a href="javascript:leave_exam();" class="pull-left"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+	        <a href="javascript:;" class="pull-right open-popup" data-target="#half"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a>
+	    </header>
+	
+		<div class="content">
+			<div class="c-pic"><span class="weui-badge" style="margin-right: 5px;">{$quesItem.type}</span>{$quesItem.contents}</div>
+			<!-- <img class="c-pic" src="__PUBLIC__/images/pic.jpg"> -->
+			<div class="c-table">
+				<!-- option exit -->
+				<if condition="$quesItem.option_a neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-a">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-a"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_a}</lable>
+						</div>
+					</a>
+				</if>
+
+				<if condition="$quesItem.option_b neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-b">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-b"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_b}</lable>
+						</div>
+					</a>
+				</if>
+
+				<if condition="$quesItem.option_c neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-c">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-c"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_c}</lable>
+						</div>
+					</a>
+				</if>
+
+				<if condition="$quesItem.option_d neq ''">
+					<a href="javascript:;">
+						<div class="option-area" id="option-d">
+						    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+						    <lable class="option-contents">{$quesItem.option_d}</lable>
+						</div>
+					</a>
+				</if>
+				
+			</div>
+
+			<if condition="$examItem['seqid'] eq count($quesList)">
+				<a class="c-button" id="submit">提交</a>
+			<else /> 
+				<a class="c-button" href="{:U('Exam/exam', array('selectid'=>$examItem['id']+1))}">下一题</a>
+			</if>
+		</div>
+
+		<div class='demos-content-padded'></div>
+
+		<div id="half" class='weui-popup__container popup-bottom'>
+		    <div class="weui-popup__overlay"></div>
+		    <div class="weui-popup__modal">
+		        <div class="toolbar">
+			        <div class="toolbar-inner" >
+				       <div class="helf-title">模拟考试</div>				       
+				    </div>
+		            
+		        </div>
+		        <div class="modal-content" style="height: auto; max-height: 400px; color: #000;">
+
+		        	<volist name="quesList" id="quesList" key="k" >
+		        		<if condition="($k)%7 eq 1">
+		        			<div class="weui-flex">
+							    <a class="weui-flex__item" href="{:U('Exam/exam',array('selectid'=>$quesList['id']))}"><div class="{$quesList.result|get_exam_index_css=###}">{$k}</div></a>
+						<elseif condition="($k)%7 eq 0"/>
+							<a class="weui-flex__item" href="{:U('Exam/exam',array('selectid'=>$quesList['id']))}"><div class="{$quesList.result|get_exam_index_css=###}">{$k}</div></a>
+							    </div>
+						<else /> 
+							<a class="weui-flex__item" href="{:U('Exam/exam',array('selectid'=>$quesList['id']))}"><div class="{$quesList.result|get_exam_index_css=###}">{$k}</div></a>
+						</if>
+					</volist>
+				   
+
+		        </div>
+		    </div>
+		</div>
+	</body>
+</html>
+
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript" src="__PUBLIC__/js/countdown.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// 初始化 ABCD四个选项的点击次数 和 索引关系
+	    var click_times = {'A':0, 'B':0, 'C':0, 'D':0};
+	    var click_index = {'A':2, 'B':3, 'C':4, 'D':5};
+
+	    // 定时
+	    function time(){
+	    	countdown({$end_time});
+	    }
+		setInterval(time,1000);
+
+
+		// 初始化如果用户已经选择了答案
+		if ("{$examItem.result}" != '-1') {
+			var option = "{$examItem.answer}";
+			if (option!='') {
+				var selected_option = $('use')[click_index[option]];
+				var selected_option_attr = selected_option.getAttribute('xlink:href');
+				selected_option.setAttribute('xlink:href', selected_option_attr + '-select');	
+				
+			}
+		} 
+
+	    // 点击选项后上传答案
+		$('.option-area').click(function(){
+			// 选择了之后正确
+			var use       = $(this).find('use')[0];
+			var icon_attr = use.getAttribute('xlink:href');
+			var option    = icon_attr.substring(13,14).toUpperCase(); //选项
+			click_times[option] ++;
+
+			// 判断该选项是否选中,并消除其他选项的样式
+			for (x in click_times)
+			{
+				if(x != option) //其他选项
+				{
+					var other_option = $('use')[click_index[x]];
+					if (other_option) 
+					{
+						var other_option_attr = other_option.getAttribute('xlink:href');
+						other_option.setAttribute('xlink:href', other_option_attr.substring(0,14));	
+					}
+					
+				} else { //用户选中了的选项
+					var this_option = $('use')[click_index[option]];
+					var this_option_attr = this_option.getAttribute('xlink:href');
+					if (this_option_attr.indexOf('select') == -1) 
+					{
+						this_option.setAttribute('xlink:href', this_option_attr + '-select');				
+					}
+				}
+				
+			}
+
+			console.log(option);		
+			var data = {
+				'selectid': "{$examItem['id']}" , 
+				'option': option,
+			}
+
+			var url = "{:U('Exam/submit')}";
+	        $.post(url, data, function(res){
+	            returnInfo(res);
+	        });
+
+		})
+
+
+		// 点击后monup
+		$(document).on("click", ".weui-popup-modal", function() {
+	        console.log("open popup");
+	    }).on("close", ".weui-popup-modal", function() {
+	        console.log("close popup");
+	    });
+
+	    // 点击提交按钮
+	    $('#submit').click(function(){
+
+	    	$.confirm("只有一次提交机会，你确定要提交吗?", "确认提交?", function() {
+	    		window.location.href="{:U('Exam/tip')}";
+	        }, function() {
+	          //取消操作
+	        });
+	    });
+
+
+	});
+
+
+
+	// 离开考试页面
+    function leave_exam() {
+    	$.confirm("您确定要中途离开本次考试嘛?", "确认离开?", function() {
+    		window.location.href="{:U('Exam/listExam')}";
+        }, function() {
+          //取消操作
+        });
+    };
+
+</script>

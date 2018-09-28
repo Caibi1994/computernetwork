@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+ </head>
+ <body ontouchstart="">
+    <include file="./Public/html/_head.html"/>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">批改作业</h1>
+    </header>
+
+    <div class="weui_panel weui_panel_access">
+      <div class="weui_panel_bd">
+        <volist name="homework" id="homework" empty="没有布置作业">
+            <a href="{:U('homework_correct')}/homeworkId/{$homework.id}" class="weui_media_box weui_media_appmsg">
+              <div class="weui_media_bd">
+                <h4 class="weui_media_title">{$homework.homeworkName}</h4>
+                <p class="weui_media_desc">{$homework.content}</p>
+              </div>
+              <div class="weui_cell_ft alert">
+                  <if condition="$homework.correcNumber eq '0'"> 
+                    <else /> 
+                    <span class="demos-badge demos-badge-red">{$homework.correcNumber}</span>
+                  </if>
+              </div>
+            </a>            
+        </volist>
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+

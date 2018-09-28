@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">发布签到</h1>
+    </header>
+    <div class="weui_cells weui_cells_form">
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">签到名称</label></div>
+        <div class="weui_cell_bd weui_cell_primary" id="signinName">
+          {$time|default="签到"}
+        </div>
+      </div>
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">截止时间</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <input id="time" class="weui_input" type="datetime-local" value="" placeholder="">
+        </div>
+      </div>
+    </div>
+
+    <div class="weui_btn_area">
+      <a class="weui_btn weui_btn_primary" href="javascript:" id="submit">确定</a>
+    </div>
+    <div id="test"></div>
+    <include file="./Public/html/_foot.html"/>
+    <include file="./Public/html/_refreshJs.html"/>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+      wx.config({
+          debug: false,
+          appId: '{$signPackage.appId}',
+          timestamp: {$signPackage.timestamp},
+          nonceStr: '{$signPackage.nonceStr}',
+          signature: '{$signPackage.signature}',
+          jsApiList: [
+            'getLocation',
+          ]
+      });
+
+      
+      latitude = '';
+      longitude= '';
+      accuracy = '';
+
+      wx.ready(function(){
+        $.showLoading('正在获取地理位置');
+        setTimeout(function(){
+          //上传
+          wx.getLocation({
+            success:function(res){
+              latitude = res.latitude;
+              longitude = res.longitude;
+              accuracy = res.accuracy;
+            }
+          });
+          $.hideLoading();
+        },4000);
+      });
+      
+      $('#submit').click(function(){
+        signinName = $('#signinName').html();
+        deadtime   = $('#time').val();
+        if (deadtime == '')  $.toptip('请选择签到截止时间');
+        else if(latitude == '' || longitude == '' || accuracy == '') 
+          $.toptip('请重新获取本页面，以获取地理位置信息');
+        else $.confirm('您确定要发布签到吗?','确定发布',function(){
+                $.showLoading('签到发布中');
+                setTimeout(function(){
+                  //上传
+                  url = "{:U('Teacher/signin_add')}";   
+                  // url = "{:U('Teacher/test')}";  
+                  data = {
+                    signinName:signinName,
+                    deadtime:deadtime,
+                    latitude:latitude,
+                    longitude:longitude,
+                    accuracy:accuracy
+                  };
+                  $.hideLoading();
+                    // $('#test').html(data);
+
+                  $.post(url,data,function(res){
+                    // $('#test').html(res);
+                    if(res == 'success'){
+                      $.toast('签到发布成功!');
+                      $('#submit').hide();
+                    }else if(res == 'failure'){
+                      $.toast('签到发布失败!','cancel');
+                    }
+                  });
+                },2000);
+              },function(){
+                //取消操作
+              });
+        });
+
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<div class="aright">
+    <div class="arz cl"><a href="{:U('Exam/add')}"><i class="layui-icon"></i>创建考试</a></div>
+    <form method="post" class="aform cl">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="5%" align="center">id</th>
+                    <th width="10%" align="center">考试名称</th>
+                    <th width="10%" align="center">开始时间</th>
+                    <th width="10%" align="center">考试时长</th>
+                    <th width="10%" align="center">是否开启</th>
+                    <th width="15%" align="center">创建时间</th>
+                    <th width="10%" align="center">考试题目</th>
+                    <th width="10%" align="center">参与学院</th>
+                    <th width="10%" align="center">基本操作</th></tr>
+                <volist name="examList" id="examList" empty="暂时没有数据" >
+                    <tr>
+                        <td style="padding-left: 20px;">{$examList.id}</td>
+                        <td align="center">{$examList.title}</td>
+                        <td align="center">{$examList.start_time|date="m-d H:i",###}</td>
+                        <td align="center">{$examList.set_time}</td>
+                        <td align="center">{$examList.is_on|is_on=###}</td>
+                        <td align="center">{$examList.time}</td>
+                        <td align="center">
+                            <a href="{:U('Exam/addQues', array('id'=>$examList['id']))}">题目详情</a>
+                        </td>
+                        <td align="center"><a href="{:U('Exam/college', array('id'=>$examList['id']))}">学院详情</a></td>
+                        <td align="center">
+                            <a href="{:U('Exam/edit', array('id'=>$examList['id']))}">修改</a>|<a href="{:U('Exam/delete', array('id' => $examList['id']))}" onclick="return confirm('您确定删除吗？');">删除</a>
+                        </td>
+                    </tr>
+                </volist>  
+
+                
+            </tbody>
+        </table>
+    </form>
+</div>

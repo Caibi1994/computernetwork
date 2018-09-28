@@ -1,0 +1,77 @@
+.rank{
+	border-radius: 6px;
+	background-color: #fff;
+	margin: 0 7px;
+	padding: 0 5px;
+	position: relative;
+}
+.column{
+	background-color: #fff;
+	/*border-radius: 3px;*/
+	border-top: 1px solid gray;
+	line-height: 1.6rem;
+}
+.NAC,.GAT{
+	text-align: left;
+	/*padding-top: 4px;*/
+	line-height: 30px;
+}
+.NAC{
+	position: absolute;
+	left:3rem;
+}
+.GAT{
+	position: relative;
+	top:13px;
+	text-align: center;
+}
+.name{
+
+	top:-0.4rem;
+	font-size: 1rem;
+}
+.grade{
+	font-size: 1.4rem;
+}
+.class , .time, .number{
+	position: relative;
+	color: #818a81;
+	font-size: 0.6rem;
+}
+.num{
+	position: relative;
+	background-color: #CCC;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 50%;
+	text-align: center;
+	top:0.6rem;
+	left:0.5rem;
+	color: #fff;
+	font-size: 1.5rem;
+}
+.No{
+	position: relative;
+	top:-0.65rem;
+}
+.No1,.No2,.No3{
+	position: relative;
+	height: 2.8rem;
+/*	left:0.4rem;*/
+}
+.demos-title{
+	color: #fff;
+}
+.elt99{
+	font-size: 1rem;
+}
+.elt999{
+	font-size: 0.8rem;
+}
+.elt9999{
+	font-size: 0.65rem;
+}
+.defen{
+	text-align: center;
+	color: #fff;
+}

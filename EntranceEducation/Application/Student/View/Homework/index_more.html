@@ -1,0 +1,21 @@
+
+    <volist name="homework" id="homework" empty="没有布置作业">
+        <a href="{:U('Homework/homeworkMenu')}/homeworkId/{$homework.id}" class="weui_media_box weui_media_appmsg">
+          <div class="weui_media_bd">
+            <h4 class="weui_media_title">{$homework.homeworkName}</h4>
+            <p class="weui_media_desc">{$homework.content}</p>
+          </div>
+           <div class="weui_cell_ft alert">
+              <if condition="$homework.isSubmit eq '未提交'"> 
+                <div><i class="weui_icon_warn"></i>你还未提交</div>
+                <elseif condition="$homework.isSubmit eq '未批改'"/>
+                <div><i class="weui_icon_success_circle"></i>已提交|未批改</div>
+                <else /> 
+                <div><i class="weui_icon_success"></i>已提交|得分:{$homework.isSubmit}</div>
+              </if>
+
+            <div><i class="weui_icon_info"></i>提交人数：&nbsp&nbsp{$homework.submitNum}</div>
+          </div>
+        </a>            
+    </volist>
+    <div data-box=".index_list" class="js_more_list"><button>点击查看更多</button></div>

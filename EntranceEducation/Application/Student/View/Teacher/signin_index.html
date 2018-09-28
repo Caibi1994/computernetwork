@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">在线签到</h1>
+    </header>
+
+    <div class="bd">
+      <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="{:U('signin_assign')}">
+         <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_button.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>发布签到</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+        <a class="weui_cell" href="{:U('signin_list')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_search_bar.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>管理签到</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+      </div>
+    </div>
+    <include file="./Public/html/_foot.html"/>
+    <include file="./Public/html/_refreshJs.html"/>
+  </body>
+</html>

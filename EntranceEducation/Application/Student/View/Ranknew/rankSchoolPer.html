@@ -1,0 +1,130 @@
+<!-- 成绩列表 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <include file="./Public/weui2.0/__head.html"/>
+    <include file="./Public/html/_head.html"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/rank.css">
+    <style>
+        [class*="weui-col-"] {
+          border: 1px solid #ccc;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+        }
+        body{
+          background-color: #12b7f5;
+        }
+        .weui-loadmore_line .weui-loadmore__tips {
+            background-color: #12b7f5; 
+            color: #757575;
+        }
+        .column:first-child{
+          border-top: 0;
+        }
+        .ti{
+          font-size: 0.9rem;
+        }
+        .rank{
+          margin-top: 8px;
+        }
+    </style>
+    <title>自由练习正确题数排名</title>
+</head>
+<body ontouchstart>
+    <div class="rank">
+        <volist name="rankList" id="rankList" key="k" empty="没有查到信息">
+            <div class="weui-row weui-no-gutter column" style="height:2.8rem">
+                <if condition="$k eq 1">
+                    <img src="__PUBLIC__/images/No1.png" class="No1">
+                <elseif condition="$k eq 2" />
+                    <img src="__PUBLIC__/images/No2.png" class="No2">
+                <elseif condition="$k eq 3" />
+                    <img src="__PUBLIC__/images/No3.png" class="No3">
+                    <!-- 数字太大会挤出去，不知道怎么整，只能分类 -->
+                <elseif condition="$k elt 9" />
+                    <div class="num">{$k}</div>
+                <elseif condition="$k elt 99" />
+                    <div class="num elt99">{$k}</div>
+                <elseif condition="$k elt 999" />
+                    <div class="num elt999">{$k}</div>
+                <else />
+                    <div class="num elt9999">{$k}</div>
+                </if>
+                <div class="NAC">
+                    <div class="name">{$rankList['info']['name']}&nbsp;</div>
+                    <div class="class">{$rankList['info']['class']|default="非新生用户"}&nbsp;</div>
+                </div>
+                <div class="GAT">
+                    <div class="grade">{$rankList['ROUND(SUM(result)/COUNT(*),2)']*100}
+                        <span class="ti">%</span>
+                    </div>
+                </div>
+            </div>
+        </volist>
+    </div>
+    <div class="weui-loadmore">
+      <i class="weui-loading"></i>
+      <span class="weui-loadmore__tips">正在加载</span>
+    </div>
+
+</body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/weui2.0/__foot.html"/>
+<script>
+
+    var stop=true;//触发开关，防止多次调用事件  
+    $(window).scroll(function() {    
+        //当内容滚动到底部时加载新的内容 100当距离最底部100个像素时开始加载.  
+        if ($(this).scrollTop() + $(window).height() + 100 >= $(document).height() && $(this).scrollTop() > 100) {    
+
+            if(stop==true){  
+                stop=false;  
+                setTimeout(function() {
+                    $.ajax({
+                        url: "{:U('Ranknew/rankSchoolPer')}",           //请求路径；
+                        success: function(res) {
+                            var str = '';
+                            var number = parseInt($(".num:last").html());
+                            var No = 0;
+                            // console.log(res);
+                            //如果没有更多数据，则更改"加载中"的样式
+                            if (res == '') {
+                                $(".weui-loadmore").addClass(" weui-loadmore_line");
+                                $(".weui-loadmore").html("<span class='weui-loadmore__tips'>暂无数据</span>")
+                                return false;
+                            }
+
+                            //否则添加内容
+                            for (var i = 0; i < res.length; i++) {
+                                if (res[i]['info'] == null) 
+                                    continue;
+                                str += "<div class='weui-row weui-no-gutter column' style='height:2.8rem'>"
+                                No = number + i + 1 ;
+                                if ( No < 99) {
+                                    str += "<div class= 'num elt99'>" + No +"</div>";
+                                } else if (No < 999 ){
+                                    str += "<div class= 'num elt999'>" + No +"</div>";
+                                } else {
+                                    str += "<div class= 'num elt9999'>" + No +"</div>";
+                                }
+                                str += "<div class='NAC'><div class='name'>"+ res[i]['info']['name'] +"&nbsp;</div><div class='class'>";
+
+                                if (res[i]['info']['class'] == '') {
+                                    str += '非新生用户';
+                                } else {
+                                    str += res[i]['info']['class'];
+                                }
+                                str += "&nbsp;</div></div><div class='GAT'><div class='grade'>" + Math.round(100*res[i]['ROUND(SUM(result)/COUNT(*),2)'],0) + "&nbsp;<span class='ti'>%</span></div></div></div>"
+                            }
+                            $(".rank").append(str);
+                        }
+                    });
+                    stop=true;  
+                }, 500);   //模拟延迟
+            }
+        }    
+    });   
+
+</script>

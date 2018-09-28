@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_head.html"/>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">课后作业</h1>
+    </header>
+
+    <div class="bd">
+      <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="{:U('homework_assign')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_dialog.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>布置作业</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+        <a class="weui_cell" href="{:U('homework_list_correct')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_toast.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>批改作业</p>
+          </div>
+          <div class="weui_cell_ft"><span class="demos-badge demos-badge-red">{$correcNumber|default='0'}</span></div>
+        </a>
+        <a class="weui_cell" href="{:U('homework_list_view')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_search_bar.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>浏览作业</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>
+  var number = $('.demos-badge').html();
+  if(number == 0)
+    $('.demos-badge').hide();
+</script>

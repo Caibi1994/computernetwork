@@ -1,0 +1,62 @@
+<div class="aright">
+
+<fieldset class="layui-elem-field layui-field-title" style="margin: 20px 30px 20px 20px;">
+  <legend>修改考试信息</legend>
+</fieldset>
+
+<form class="layui-form bform" method="post" action="{:U('Exam/edit', array('id'=>$info['id']))}" enctype="multipart/form-data">
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">考试名称</label>
+    <div class="layui-input-block">
+      <input type="text" name="name" required="" lay-verify="required" placeholder="必填内容" value={$info.title} autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">开始时间</label>
+    <div class="layui-input-block">
+      <input type="datetime-local" name="start_time" value="{$info.start_time|date='Y-m-d', ###}T{$info.start_time|date='H:i', ###}" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+<!-- value="{$info.start_time|date="Y-m-d", ###}"  -->
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">考试时长（分钟）</label>
+    <div class="layui-input-block">
+      <input type="text" name="set_time" value="{$info.set_time}" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+ 
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">是否开启</label>
+    <div class="layui-input-block">
+        <if condition="$info.is_on eq 1">
+            <input type="radio" name="is_on" value="1" title="开启" checked=""><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><span>开启</span></div>
+            <input type="radio" name="is_on" value="0" title="关闭"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>关闭</span></div>
+        <else />
+            <input type="radio" name="is_on" value="1" title="开启"><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><span>开启</span></div>
+            <input type="radio" name="is_on" value="0" title="关闭" checked=""><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>关闭</span></div>
+        </if>
+      
+    </div>
+  </div>
+
+
+  <div class="layui-form-item" >
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
+      <a class="layui-btn layui-btn-primary" href="javascript:history.back(-1)">返回</a>
+    </div>
+  </div>
+
+</form>
+<script>
+layui.use('form', function(){
+  var form = layui.form();
+});
+</script>
+</div>

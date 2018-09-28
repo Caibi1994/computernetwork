@@ -1,0 +1,39 @@
+<style>
+    div{
+        display: inline-block;
+    }
+</style>
+<div class="aright">
+    <div class="arz cl"><a href="{:U('Question/search')}"><i class="layui-icon"></i><!-- i标签里面是一个不能识别的字符 -->搜索</a></div>
+    <div class="arz cl"><a href="{:U('Question/add')}"><i class="layui-icon"></i>添加</a></div>
+    <form method="post" class="aform cl">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="10%" align="center" >id</th>
+                    <th width="10%" align="center">题目章节</th>
+                    <th width="10%" align="center">题目类型</th>
+                    <th width="45%" align="center">题干内容</th>
+                    <th width="10%" align="center">正确选项</th>
+                    <th width="15%" align="center">操作</th></tr>
+                <volist name="questionList" id="questionList" empty="暂时没有数据" >
+                    <tr>
+                        <td style="padding-left: 20px;">{$questionList.id}</td>
+                        <td align="center">{$questionList.chapter}</td>
+                        <td align="center">{$questionList.type|get_ques_type=###}</td>
+                        <td align="center">{$questionList.contents}</td>
+                        <td align="center">{$questionList.right_answer}</td>
+                        <td align="center">
+                            <a href="{:U('Question/edit', array('id'=>$questionList['id']))}">修改</a>|<a href="{:U('Question/delete', array('id' => $questionList['id']))}" onclick="return confirm('您确定删除吗？');">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+              
+    </form>
+  
+    <div class="pages">
+     {$page}
+     </div> 
+</div>

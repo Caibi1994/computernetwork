@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<include file="./Public/weui2.0/__head.html"/>
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+		<style type="text/css">
+			.bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+			.title {background-color:#fbf9fe; color: #476777;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            .weui-dialog__btn {color: #4bc2ff;}
+            /*.icon {width: 20px; height: 20px}*/
+            .weui-badge{background-color: #00ff00;}
+		</style>
+	</head>
+	<body>
+		<header class="bar bar-nav">
+	        <div class="title">{$testItem.seqid}/{$quesList|count=###}</div>
+	        <a href="javascript:leave_test();" class="pull-left"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+	        <a href="javascript:;" class="pull-right open-popup" data-target="#half"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a>
+	    </header>
+	
+		<div class="content">
+			<div class="c-pic"><span class="weui-badge" style="margin-right: 5px;">{$quesItem.type}</span>{$quesItem.contents}</div>
+			<!-- <img class="c-pic" src="__PUBLIC__/images/pic.jpg"> -->
+			<div class="c-table">
+
+				<!-- option exit -->
+				
+				<a href="javascript:;">
+					<div class="option-area" id="option-right">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-icondanxuanxiangweixuanze"></use></svg></span>
+					    <lable class="option-contents">正确</lable>
+					</div>
+				</a>
+
+				<a href="javascript:;">
+					<div class="option-area" id="option-wrong">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-icondanxuanxiangweixuanze"></use></svg></span>
+					    <lable class="option-contents">错误</lable>
+					</div>
+				</a>
+				
+			</div>
+				
+			<if condition="$testItem['seqid'] eq count($quesList)">
+				<a class="c-button" id="submit">提交</a>
+			<else /> 
+				<!-- <a class="c-button" id="next_ques" href="{:U('Test/test', array('selectid'=>$testItem['id']+1))}">下一题</a> -->
+				<a class="c-button" href="{:U('Test/test', array('selectid'=>$selectidArr[$testItem['seqid']+1]))}">下一题</a>
+			</if>
+		</div>
+
+		<div class='demos-content-padded'></div>
+		<div id="half" class='weui-popup__container popup-bottom'>
+		    <div class="weui-popup__overlay"></div>
+		    <div class="weui-popup__modal">
+		        <div class="toolbar">
+			        <div class="toolbar-inner" >
+				       <div class="helf-title">随堂测试</div>				       
+				    </div>
+		            
+		        </div>
+		        <div class="modal-content" style="height: auto; max-height: 400px; color: #000;">
+
+		        	<volist name="quesList" id="quesList" key="k" >
+		        		<if condition="($k)%7 eq 1">
+		        			<div class="weui-flex">
+							    <a class="weui-flex__item" href="{:U('Test/test',array('selectid'=>$quesList['id']))}"><div class="{$quesList.result|get_test_index_css=###}">{$k}</div></a>
+						<elseif condition="($k)%7 eq 0"/>
+							<a class="weui-flex__item" href="{:U('Test/test',array('selectid'=>$quesList['id']))}"><div class="{$quesList.result|get_test_index_css=###}">{$k}</div></a>
+							    </div>
+						<else /> 
+							<a class="weui-flex__item" href="{:U('Test/test',array('selectid'=>$quesList['id']))}"><div class="{$quesList.result|get_test_index_css=###}">{$k}</div></a>
+						</if>
+					</volist>
+				   
+		        </div>
+		    </div>
+		</div>
+	</body>
+</html>
+
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript" src="__PUBLIC__/js/countdown.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// 初始化 ABCD四个选项的点击次数 和 索引关系
+	    var click_times = {'对':0, '错':0};
+	    var click_index = {'对':2, '错':3};
+
+	     // 定时
+	 //    function time(){
+	 //    	countdown({$end_time});
+	 //    }
+		// setInterval(time,1000);
+	   
+
+		// 初始化如果用户已经选择了答案
+		if ("{$testItem.result}" != '-1') {
+			var option = "{$testItem.answer}";
+			if (option!='') {
+				var selected_option = $('use')[click_index[option]];
+				var selected_option_attr = selected_option.getAttribute('xlink:href');
+				selected_option.setAttribute('xlink:href', '#icon-danxuan');	
+			}
+		} 
+
+	    // 点击选项后上传答案
+		$('.option-area').click(function(){
+			// 选择了之后
+			var use       = $(this).find('use')[0];
+			var lable      = $(this).find('lable')[0];
+			var option     = lable.innerHTML == '正确' ? '对' : '错'; //选项
+			click_times[option] ++;
+
+			
+			var data = {
+				'selectid': "{$testItem['id']}" , 
+				'option': option,
+			}
+
+			var url = "{:U('Test/testSubmit')}";
+	        $.post(url, data, function(res){
+	            // returnInfo(res);
+
+	            if(res.is_on == 0) {
+			        $.alert("本次考试还未开启！", "提示");
+			        return;
+			    }
+			    
+			    // 已开启，已提交，已结束
+			    if(res.is_submit == 1 && res.is_end == 1) {
+			        $.alert("本次考试已经结束，你成功提交！", "提示");
+			        return;
+			    }
+
+			    // 已开启，未提交，已结束
+			    if(res.is_submit == 0 && res.is_end == 1) {
+			        alert("本次考试已经结束！！");
+			        window.location.href="{:U('Test/tip')}";
+			        return;
+			    }
+
+
+	        });
+
+	        // 判断该选项是否选中,并消除其他选项的样式
+			for (var i = 0; i < $('.content').find('use').length; i++)
+			{
+				$('.content').find('use')[i].setAttribute('xlink:href', '#icon-icondanxuanxiangweixuanze');				
+			}
+			use.setAttribute('xlink:href', '#icon-danxuan');
+
+			// console.log(option);		
+		})
+
+
+		// 点击后monup
+		$(document).on("click", ".weui-popup-modal", function() {
+	        console.log("open popup");
+	    }).on("close", ".weui-popup-modal", function() {
+	        console.log("close popup");
+	    });
+
+	    // 点击提交按钮
+	    $('#submit').click(function(){
+
+	    	$.confirm("只有一次提交机会，你确定要提交吗?", "确认提交?", function() {
+	    		window.location.href="{:U('Test/tip')}";
+	        }, function() {
+	          //取消操作
+	        });
+	    });
+
+
+	});
+
+	
+
+	// 离开考试页面
+    function leave_test() {
+    	$.confirm("您确定要中途离开本次考试嘛?", "确认离开?", function() {
+    		window.location.href="{:U('Test/testList')}";
+        }, function() {
+          //取消操作
+        });
+    };
+</script>

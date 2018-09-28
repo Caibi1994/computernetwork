@@ -1,0 +1,11 @@
+
+/*.pass {
+	position: absolute;
+	left: -35%;
+}*/
+.pass {     
+	width: 50px !important;
+	height: 50px !important;
+	/*margin-left: 164px;*/
+	/*margin-top: 60px;*/
+}

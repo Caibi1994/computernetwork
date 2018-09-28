@@ -1,0 +1,371 @@
+#timelblbox {
+    display: none;
+    margin-top: 10px;
+}
+.voiceplaybox {
+    margin-top: 5px;
+    line-height: 30px;
+    position: relative;
+    color: #888;
+    width: 100px;
+    height: 30px;
+    border: solid 1px #ccc;
+    border-radius: 8px;
+}
+
+.voicex {
+    position: absolute;
+    top: -15px;
+    right: -13px;
+    opacity: 0.5;
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: 1px -310px;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+}
+
+.voiceplaybtn {
+    display: inline-block;
+    width: 15px;
+    height: 25px;
+    margin-left: 10px;
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: 0px -605px;
+}
+   
+    .voiceplaying {
+    display: inline-block;
+    width: 20px;
+    height: 25px;
+    margin-left: 5px;
+    background: url(http://i.pengxun.cn/content/images/voiceplaying.gif) no-repeat;
+}
+
+.voiceplaytime {
+    float: right;
+    margin-right: 5px;
+}
+
+.voice-contbox {
+    color: rgb(230,230,230);
+    text-align: center;
+}
+
+.voice-timebox {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    font-size: 24px;
+    margin: 0px 10px;
+}
+
+.voice-lblclicktips {
+    font-size: 18px;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 10px;
+}
+
+.voice-timelabelimg {
+    width: 56px;
+    float: left;
+}
+ .voice-timelabelimg img {
+        width: 56px;
+        height: 24px;
+    }
+
+.voice-recordstartbtn {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -113px -211px;
+    width: 72px;
+    height: 72px;
+}
+
+    .voice-recordstartbtn:active {
+        background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+        background-position: -113px -370px;
+        width: 72px;
+        height: 72px;
+    }
+
+.voice-recordplaybtn {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -113px -866px;
+    width: 72px;
+    height: 72px;
+}
+    .voice-recordplaybtn:active {
+        background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+        background-position: -113px -1037px;
+        width: 72px;
+        height: 72px;
+    }
+
+.voice-recordstopbtn {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -111px -1213px;
+    width: 72px;
+    height: 72px;
+}
+
+    .voice-recordstopbtn:active {
+        background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+        background-position: -111px -1378px;
+        width: 72px;
+        height: 72px;
+    }
+.voice-recordendbtn {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -113px -541px;
+    width: 72px;
+    height: 72px;
+}
+
+    .voice-recordendbtn:active {
+        background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+        background-position: -113px -699px;
+        width: 72px;
+        height: 72px;
+    }
+#imgList {
+    width: 100%;
+}
+
+.dis {
+    float: right;
+    margin-right: 30px;
+    line-height: 40px;
+    height: 40px;
+    margin-top: -3px;
+}
+
+.disdiv {
+    float: left;
+    margin-left: 15px;
+    cursor: pointer;
+    width: 32px;
+}
+
+.disf {
+    cursor: pointer;
+    z-index: 99;
+    width: 32px;
+    height: 32px;
+    margin-top: -40px;
+    opacity: 0;
+    position: absolute;
+}
+
+.rd3 {
+    margin-top: 10px;
+}
+.imgd {
+    display:inline-block;
+    width: 20%;
+    margin-top: 5px;
+    position: relative;
+}
+
+.imgu {
+    width: 95%;
+    border-radius: 5px;
+    border: none;
+}
+
+.imgx {
+    position: absolute;
+    top: -8px;
+    right: 0;
+    opacity: 0.5;
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: 1px -310px;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+}
+
+.btnboxlist {
+    border-bottom: 1px solid #e9e9e9;
+    padding: 5px;
+    position: relative;
+    font-size: 13px;
+}
+.btnboxlist a{
+        display: inline-block;
+        color:#666;
+        text-align: center;
+        height:42px;
+        width:27px;
+    }
+    .btnboxlist em {
+        display: inline-block;
+        text-align: center;
+        height:25px;width:27px;
+    }
+.btnboxa {
+    margin-left: 5px;
+    width: 30px;
+}
+.btnlblface {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -32px 0px;
+}
+.btnlblemimg {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -32px -28px;
+}
+
+.btnimgemimg {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -34px -89px;
+}
+
+.btnvoiceemimg {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: 5px -105px;
+}
+
+.btnvideoemimg {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -34px -148px;
+}
+
+.btnguerdonmimg {
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: -32px -179px;
+}
+
+.btnguerdonmimg2 {
+    background: url(http://i.pengxun.cn/content/images/icon-guerdon.png) no-repeat;
+}
+
+.btnaddressa {
+    display: inline-block;
+    height: 30px;
+    margin-left: 10px;
+    border: solid #ccc 2px;
+    border-radius: 6px;
+    padding: 0px 5px;
+}
+
+.btnaddressemimg1 {
+    display: inline-block;
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: 0px -192px;
+    width: 24px;
+    height: 30px;
+    border: none;
+    float: left;
+}
+
+.btnaddressemimg2 {
+    display: inline-block;
+    background: url('../images/qqface/vzanback-xs11.png') no-repeat;
+    background-position: 2px -244px;
+    width: 20px;
+    height: 30px;
+    border: none;
+    float: left;
+    margin-left: 5px;
+}
+
+.btnaddressemtext {
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    float: left;
+    font-size: 15px;
+    margin-left: 3px;
+}
+
+.btn-addart {
+    font-weight: bold;
+    padding: 0px 18px;
+    height: 30px;
+    background-color: rgb(0,168,255);
+    border: 1px solid rgb(0,168,255);
+    color: #fff;
+    text-align: center;
+    float: right;
+    border-radius: 6px;
+    font-size: 16px;
+    position: absolute;
+    right: 14px;
+    bottom: 3px;
+}
+
+.arttype-icon {
+    border: solid 2px #ccc;
+    color: #999;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    text-decoration: none;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.on {
+    border: solid 2px #12caca;
+    background-color: #12caca;
+    color: #fff;
+}
+#div-qqfaces{
+        text-align:center;height:200px;overflow-y: scroll;
+    }
+    #div-qqfaces span{
+        display:inline-block;width:20%;padding: 5px 0px;
+    }
+.float_div {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        float: right;
+        z-index: 100;
+        right: 0; /*   定位到右上   */
+        top: 0;
+        clear: both;
+    }
+
+    .barline {
+        float: left;
+        width: 200px;
+        background: #FFF;
+        border: 2px solid #4DBF7D;
+        height: 12px;
+        display: inline-block;
+        border-radius: 8px;
+        display: none;
+        position: absolute;
+        left: 70px;
+        top: 70px;
+    }
+
+        .barline #percent {
+            position: absolute;
+            left: 0px;
+            top: -30px;
+            display: inline-block;
+            color: #4DBF7D;
+            font-size: 16px;
+        }
+
+        .barline #line {
+            float: left;
+            height: 12px;
+            overflow: hidden;
+            background: #4DBF7D;
+            border-radius: 8px;
+        }
+
+        .barline #msg {
+            position: absolute;
+            left: 80px;
+            top: 30px;
+            display: inline-block;
+            color: #4DBF7D;
+            font-size: 14px;
+        }

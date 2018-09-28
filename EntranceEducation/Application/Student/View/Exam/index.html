@@ -1,0 +1,78 @@
+<html class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+    
+    <head>
+        <include file="./Public/weui2.0/__head.html"/>
+        <style type="text/css">
+            .img{width: 100px; height: 100px; border-radius:50px;}
+            .weui-msg__text-area{padding:0;}
+            .weui-form-preview__bd, .weui-cells__title{text-align: left;}
+            .weui-msg__icon-area {margin-bottom: 20px;}
+            /*.weui-btn_primary {background-color: #10aeff;}*/
+        </style>
+    
+    <body ontouchstart="">
+        <div class="weui-msg">
+            <div class="weui-msg__icon-area">
+                <img class="img" src="{$stuInfo['headimgurl']|default='__PUBLIC__/images/newer/ieee_logo.jpg'}">
+            </div>
+            <div class="weui-msg__text-area">
+                <h2 class="weui-msg__title">{$stuInfo['name']}</h2>
+                <div class="weui-cells__title">测试说明</div>
+                <div class="weui-form-preview">
+                    <div class="weui-form-preview__bd">
+                        <div class="weui-form-preview__item">
+                            <ul>
+                                <li>1. 本次测试时间：{$examInfo.start_time|date="H:i",###} -- <php> echo date("H:i", $examInfo['start_time'] + $examInfo['set_time']*60);</php></li>
+                                <li>2. 本次测试题目{$examInfo['count']}道题</li>
+                                <li>3. 答对{$examInfo['count']*4/5|ceil}道题目算通过</li>
+                                <li>4. 一人只有一次提交机会</li>
+                            </ul>    
+                        </div>
+                    </div>
+                  
+                  
+                </div>
+            </div>
+            <div class="weui-msg__opr-area">
+                <p class="weui-btn-area">
+                    <a id="enter_exam" class="weui-btn weui-btn_primary">进入测试</a>
+            </div>
+            
+        </div>
+        
+    </body>
+
+</html>
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript">
+    $('#enter_exam').click(function(){
+        var url  = "{:U('Exam/beforeInit')}";
+        var data = {};
+        $.post(url, data, function(res){
+            console.log(res);
+            if(res.is_on == 0) {
+                $.alert("本次测试还未开启！", "提示");
+            }
+            //  else if(res.is_college != 1 && res.is_end == 0) {
+            //     $.alert("本场测试你没有权限参与", "提示");
+            // } 
+            else if (res.is_submit == 1 && res.is_end == 1) {
+                // 已开启，已提交，已结束
+                $.alert("本次测试已经结束，你成功提交！", "提示");
+            } else if (res.is_submit == 1 && res.is_end == 0) {
+                // 已开启，已提交，未结束
+                $.alert("你已经提交过了！", "提示");
+            } else if (res.is_submit == 0 && res.is_end == 1) {
+                // 已开启，未提交，已结束
+                $.alert("本次测试已经结束，但你没有提交，请联系管理员！！", "提示");
+            } else if (res.time_end == 1 && res.is_submit == 0) {
+                // 测试倒计时已经结束
+                $.alert("本次测试已经结束，但你没有提交，请联系管理员！！", "提示");
+            } else if (res.is_submit == 0 && res.is_end == 0) {
+                // 已开启，未提交，未结束
+                window.location.href="{:U('Exam/exam')}";
+            }
+
+        });
+    });
+</script>

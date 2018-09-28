@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>四六级准考证保存</title>
+  <include file="./Public/html/_head.html"/>
+  <style>
+    .demos-title{font-size: 28px;}
+  </style>
+ </head>
+ <body ontouchstart="">
+  <header class="demos-header"> 
+   <h1 class="demos-title">四六级准考证保存</h1>
+  </header> 
+  <form action="{:U('saveCet')}" method="post">
+  <div class="weui_cells weui_cells_form">
+   
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">姓名</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" id="name" type="text" name="name" value="{$StuInfo.name}">
+    </div> 
+   </div>
+   <div class="weui_cell">
+    <div class="weui_cell_hd">
+     <label class="weui_label">学号</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" id="number" type="text" name="number" value="{$StuInfo.number}">
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">准考证号</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     <input class="weui_input" id="kao_number" type="number" name="kao_number" placeholder="请输入准考证号"/>
+    </div> 
+   </div>
+   
+  </div>
+  <div class="weui_btn_area">
+    <input type="submit" class="weui_btn weui_btn_primary" id="submit" value="确定">
+  </div>
+  </form>
+
+  
+  <include file="./Public/html/_foot.html"/>
+  <script>
+      
+
+      $("#submit").click(function() {
+        var kao_number = $('#kao_number').val();
+        var name = $('#name').val();
+        var number = $('#number').val();
+        if(!name){
+        	$.toptip('请输入姓名');	
+        	return false;	
+        }
+        if(!number){
+        	$.toptip('请输入学号');	
+        	return false;		
+        }
+        if(!kao_number) 
+        {
+        	$.toptip('请输入准考证号');	
+        	return false;
+        }
+        else if(kao_number.length !== 15) 
+      	{
+      		$.toptip('准考证号为15位数');
+      		return false;
+      	}
+      });
+
+    </script>  
+ </body>
+</html>

@@ -1,0 +1,249 @@
+<html class="pixel-ratio-2 retina android android-6 android-6-0">
+    
+    <head>
+        <include file="./Public/weui2.0/__head.html" />
+        <style>
+            .weui-cells {
+                margin-top: 0;
+            }
+            #submit {
+                margin: 15px;
+                background:#12B7F5;
+            }
+            .weui-agree{
+                display: inline-block;
+            }
+            .tab {
+                display: inline-block;
+                width: 49%;
+            }
+            #div2{
+                display: none;
+            }
+            .name:after {
+                border-bottom: 0px;
+            }
+            .demos-title{
+            	color:#12B7F5;
+            }
+            .toolbar .picker-button{
+                color: #3d4145;
+            }
+            
+
+
+        </style>
+    
+        </head>
+
+
+    
+    <body ontouchstart="">
+        <header class="demos-header">
+            <h1 class="demos-title" id="title">信息绑定</h1>
+        </header>
+        <div class="weui-tab">
+           
+    <div id="div1" class="weui-cells weui-cells_form">
+        <div class="weui-cells weui-cells_form name">
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">姓名</label></div>
+                <div class="weui-cell__bd">
+                    <input id="name" class="weui-input" type="text" pattern="" placeholder="请输入姓名"></div>
+            </div>
+        </div>
+           
+        
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label for="home-city" class="weui-label">班级</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input id="home-city" class="weui-input" type="text" readonly="" data-code="0" data-codes="0,0" placeholder="请选择班级">
+            </div>
+        </div>
+        
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">学号</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input id="number" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入学号">
+            </div>
+        </div>
+            
+    </div>
+
+
+
+               
+        <div id="div2" class="weui-cells weui-cells_form">
+            <div class="weui-cells weui-cells_form name">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">姓名</label></div>
+                    <div class="weui-cell__bd">
+                        <input id="name1" class="weui-input" type="text" pattern="" placeholder="请输入姓名"></div>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-before">
+                <div class="weui-cell__hd">
+                    <select class="weui-select" name="select2">
+                        <option value="1">学号</option>
+                        <option value="2">手机号</option>
+                    </select>
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="phone" class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入号码"></div>
+            </div>
+            
+        </div>
+
+
+
+        <div class="tab" style="text-align: right;">
+            <label id="lb1" class="weui-agree">
+                    <input id="new" name="xingsheng" type="radio" class="weui-agree__checkbox" value="" checked>
+                    <span class="weui-agree__text">
+                      我是学生
+                    </span>
+            </label>
+        </div>
+        <div class="tab">
+            
+                 <label id="lb2" class="weui-agree">
+                    <input id="not_new" name="xingsheng" type="radio" class="weui-agree__checkbox" value="">
+                    <span class="weui-agree__text">
+                      我是路人
+                    </span>
+                </label>
+        </div>
+           
+        <div class="weui_btn_area">
+            <a href="javascript:" id="submit" class="weui-btn weui-btn_primary" >绑定</a>
+        </div>
+
+
+             
+    </div>
+    <include file="./Public/weui2.0/__foot.html" />
+    <script src="__PUBLIC__/js/city-picker.js"></script>
+
+    <script>
+    var data = {};
+
+        var title=document.getElementById("title");
+        var submit=document.getElementById("submit");
+        
+        $('#lb1').click(function(){
+            $('#div2')[0].style.display="none";
+            $('#div1')[0].style.display="block";
+            title.innerHTML = "信息绑定";
+            submit.innerHTML = "绑定";
+            
+        });
+        $('#lb2').click(function(){
+            $('#div1')[0].style.display="none";
+            $('#div2')[0].style.display="block";
+            title.innerHTML = "用户注册";
+            submit.innerHTML = "注册";
+        });
+        
+
+
+
+        var college,banji;//定义全局变量
+
+        $("#home-city").cityPicker({
+            title: "请选择学院班级",
+            showDistrict: false,
+            onChange: function(picker, values, displayValues) {
+                college = displayValues[0];
+                banji = displayValues[1];
+                // console.log(displayValues);
+            }
+        });
+
+        $('#submit').click(function(){
+            // alert("message?: DOMString");
+            url  = "{:U('User/register')}";
+
+            if ($('#div1')[0].style.display=="block" || $('#div1')[0].style.display=="") {
+                var name = $("#name").val();
+                // var banji = $('#home-city').val();
+                var number = $('#number').val();
+                if(!name) {
+                    $.toptip('请输入姓名');
+                    return false;
+                }
+                else if(!banji){
+                    $.toptip('请选择班级');
+                    return false;
+                }
+                else if(!number){
+                    $.toptip('请输入学号');
+                    return false;
+                }
+                // else if(number.length != 10){
+                //     $.toptip('学号必须是10位数');
+                //     return false;
+                // }
+                else {
+                  /*=============上传数据==========*/
+                  data = {
+                    'name'   : name,
+                    'college':college,
+                    'banji'  : banji,
+                    'number' : number,
+                    'is_newer':1,
+                  }
+
+                }
+
+            }else if($('#div2')[0].style.display=="block"){
+                var name1 = $("#name1").val();
+                var phone = $('#phone').val();
+                if(!name1){
+                    $.toptip('请输入姓名');
+                    return false;
+                }
+                else if(!phone){
+                    $.toptip('请输入号码');
+                    return false;
+                }
+                else if(phone.length < 10){
+                    $.toptip('号码必须大于10位数');
+                    return false;
+                }
+                else {
+                  /*=============上传数据==========*/
+                  data = {
+                    'name'   : name1,
+                    'number' : phone,
+                    'is_newer':0,
+                  }
+                }
+            }
+
+              $.post(url,data,function(res){
+                
+                if(res != 'success') {
+                    $.alert(res,"确定");
+                } else {
+                    $.showLoading();
+                    setTimeout(function() {
+                        $.hideLoading();
+                        $.toast("注册成功");
+                        window.location.href="{:U('User/index', array('openId'=>$openId))}";//
+                    }, 1000)
+                }
+              });
+
+
+        });
+
+    </script>
+</body>
+
+</html>

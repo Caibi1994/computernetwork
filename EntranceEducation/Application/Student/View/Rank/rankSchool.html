@@ -1,0 +1,79 @@
+<!-- 成绩列表 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <include file="./Public/html/_head.html"/>
+  <link rel="stylesheet" href="__PUBLIC__/css/rank.css">
+  <style>
+    [class*="weui-col-"] {
+      border: 1px solid #ccc;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+    }
+    body{
+      background-color: #3A6CA3;
+    }
+  </style>
+</head>
+<body ontouchstart >
+  <include file="./Public/html/_refresh.html"/>
+  <header class='demos-header'>
+    <h1 class="demos-title">学校成绩与排名</h1>
+    <if condition="$grade_info.answerRightNum neq null"> 
+      <div class="defen">我的得分：{$grade_info.answerRightNum}&nbsp;&nbsp;&nbsp;排名：{$rank}</div>
+    <else />
+      <div class="defen">您还没有得分</div>
+    </if>
+  </header>
+
+<!--     <div class="weui-row weui-no-gutter">
+      <div class="weui-col-20">姓名</div>
+       <div class="weui-col-25">学号</div> 
+      <div class="weui-col-25">班级</div>
+      <div class="weui-col-15">得分</div>
+      <div class="weui-col-40">用时</div>      
+    </div> -->
+  <div class = "rank">
+   <volist name="gradeList" id="gradeList" key="k" empty="没有查到信息">
+      <div class="weui-row weui-no-gutter column">
+        <if condition="$k eq 1"> 
+          <img src="__PUBLIC__/images/No1.png" class="No1">
+        <elseif condition="$k eq 2"/>
+          <img src="__PUBLIC__/images/No2.png" class="No2">
+        <elseif condition="$k eq 3"/>
+          <img src="__PUBLIC__/images/No3.png" class="No3">
+          <!-- 数字太大会挤出去，不知道怎么整，只能分类 -->
+        <elseif condition="$k elt 9"/>
+          <div class="num">
+            {$k}
+          </div>
+        <elseif condition="$k elt 99"/>
+          <div class="num">
+            {$k}
+          </div>
+        <elseif condition="$k elt 999"/>
+          <div class="num">
+            {$k}
+          </div> 
+        <else />
+          <div class="num">
+            {$k}
+          </div>
+        </if>
+        <div class="NAC">
+          <div class="name">{$gradeList.name}</div>
+          <!--  <div class="number">{$gradeList.number}</div> -->
+          <div class="class">{$gradeList.class}</div>
+        </div>
+        <div class="GAT">
+          <div class="grade">{$gradeList.answerRightNum}</div>
+          <div class="time">{$gradeList.answerTime}</div>      
+        </div>
+      </div>
+    </volist>
+  </div>
+  </body>
+  </html>
+  <include file="./Public/html/_foot.html"/>
+  <include file="./Public/html/_refreshJs.html"/>

@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <style>
+        body{
+          text-align: center;
+        }
+        .weui-row{         
+          margin-top: 30px;
+        }
+        .weui-col-20 img{
+          /*background-image:"/EntranceEducation/Public/images/pass.png" ;*/
+           max-width:50px;
+           width:50px;
+           width:expression(document.body.clientWidth>200?"50px":"auto");
+           max-height:50px;
+           height:50px;
+           height:expression(document.body.clientWidth>200?"50px":"auto");
+           overflow:hidden;
+        }
+        .weui_icon_area{
+          margin-top: 30px;
+        }
+    </style>
+
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">测试结果</h1>
+    </header>
+    <font face="黑体" color="blue">(绿√表示通过，红×表示未通过)</font>
+    <div class="weui-row weui-no-gutter">
+      <div class="weui-col-20">姓名</div>
+      <div class="weui-col-20">得分</div>
+      <div class="weui-col-20">成绩</div>      
+      <div class="weui-col-40">用时</div>
+    </div>
+
+    <div class="weui-row weui-no-gutter">
+      <div class="weui-col-20">{$answerRecord.name|default='null'}</div>
+      <div class="weui-col-20">{$answerRecord.answerRightNum|default='null'}</div>
+      <div class="weui-col-20"><if condition="$answerRecord.simulateResult eq pass"><img src="/EntranceEducation/Public/images/pass.png"  alt="通过" /> <else /> <img src="/EntranceEducation/Public/images/fail.png"  alt="未通过" /></if></div>      
+      <div class="weui-col-40">{$answerRecord.answerTime|default='null'}</div>
+    </div>
+
+    <div class="weui_icon_area">
+      <a href="{:U('Simulate/simulateAnalyze')}/openId/{$openId}/testId/{$testId}">试卷解析</a>
+    </div>
+
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">课后作业</h1>
+    </header>
+
+    <div class="bd">
+      <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="{:U('Homework/homework')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_dialog.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>去完成作业</p>
+          </div>
+          <div class="weui_cell_ft"><if condition="$state eq '未提交'"> <i class="weui_icon_warn"></i><else /> <i class="weui_icon_success"></i></if></div>
+        </a>
+        <a class="weui_cell" href="{:U('homeworkmark')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_toast.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>互评作业</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+        <!-- <a class="weui_cell" href="{:U('Teacher/homework_view')}/homeworkId/{$homeworkId}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_search_bar.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>浏览作业</p>
+          </div>
+          <div class="weui_cell_ft"><span class="demos-badge">{$number|default='0'}</span></div>
+        </a> -->
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

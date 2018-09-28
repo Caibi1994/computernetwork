@@ -1,0 +1,42 @@
+<style>
+    div{
+        display: inline-block;
+    }
+</style>
+<div class="aright">
+    <div class="arz cl"><a href="#"><i class="layui-icon"></i><!-- i标签里面是一个不能识别的字符 -->搜索</a></div>
+    <form method="post" class="aform cl">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="8%" align="center" >id</th>
+                    <th width="8%" align="center">题目章节</th>
+                    <th width="8%" align="center">题目类型</th>
+                    <th width="40%" align="center">题干内容</th>
+                    <th width="8%" align="center">正确选项</th>
+                    <th width="10%" align="center">答题人数</th>
+                    <th width="10%" align="center">正确率</th>
+                    <th width="8%" align="center">操作</th></tr>
+                <volist name="questionList" id="questionList" empty="暂时没有数据" >
+                    <tr>
+                        <td style="padding-left: 20px;">{$questionList.id}</td>
+                        <td align="center">{$questionList.chapter}</td>
+                        <td align="center">{$questionList.type|get_ques_type=###}</td>
+                        <td align="center">{$questionList.contents}</td>
+                        <td align="center">{$questionList.right_answer}</td>
+                        <td align="center">{$questionList.id|getAnswerNum=###}</td>
+                        <td align="center">{$questionList.id|getAccuracy=###}%</td>
+                        <td align="center">
+                            <a href="#">详情</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+              
+    </form>
+  
+    <div class="pages">
+     {$page}
+     </div> 
+</div>

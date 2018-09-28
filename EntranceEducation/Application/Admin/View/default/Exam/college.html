@@ -1,0 +1,49 @@
+<div class="aright">
+    <form method="post" class="aform cl" action="{:U('article/deletes')}">
+        <table width="100%">
+              <tr>
+                <th width="5%" align="center"><input type="checkbox" name="checkbox" id="selall" /></th>
+                <th width="5%" align="center">编号</th>
+                <th width="25%" align="center">学院名称</th>
+                <th width="25%" align="center">是否参与</th>
+                <th width="20%" align="center">提交人数</th>
+                <th width="20%" align="center">基本操作</th>
+              </tr>
+              <volist name="list" id="vo">
+                  <tr>
+                    <td align="center"><input type="checkbox" class="selall" name="deletes[]" value="{$vo.id}" /></td>
+                    <td align="center">{$key+1}</td>
+                    <td align="center"><a target="_blank" href="">{$vo.academy}</a></td>
+                    <td align="center">
+                        <if condition="$vo['state'] neq '0'">
+                            参与
+                        <else /> 
+                            不参与
+                        </if>
+                    </td>
+                    <td align="center">0</td>
+                    <td align="center"><a href="{:U('Exam/editCollege',array('id'=>$vo['id'], 'state'=>$vo['state'] ))}">修改</a> | <a href="{:U('article/delete',array('id'=>$vo['id']))}" onclick="return confirm('您确定要删除吗？');">删除</a>
+                    </td>
+                  </tr>
+              </volist>
+         </table>
+        <div class="layui-form-item">
+            <div style="margin-top: 20px;">
+              <button class="layui-btn" onclick="return confirm('您确定要删除吗？');" type="submit">选中参与</button>
+              <button class="layui-btn" onclick="return confirm('您确定要删除吗？');" type="submit">选择不参与</button>
+              <button class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+    $("#selall").click(function(){
+        if($(this).attr("checked")){
+            $(".selall").attr("checked","checked");
+        }else{
+            $(".selall").removeAttr("checked");
+        }
+
+    })
+    </script>
+</div>

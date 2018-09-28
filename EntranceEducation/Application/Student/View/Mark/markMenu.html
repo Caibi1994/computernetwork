@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+    <header class='demos-header'>
+      <h1 class="demos-title">积分管理</h1>
+    </header>
+
+    <div class="bd">
+      <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="{:U('update')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_toast.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>更新积分</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+        <a class="weui_cell" href="{:U('classList')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_search_bar.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary"> 
+            <p>查看积分</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+        <a class="weui_cell" href="{:U('markWeight')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_toast.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>积分权重</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+        <a class="weui_cell" href="{:U('exportExcel')}">
+          <div class="weui_cell_hd"><img src="__PUBLIC__/images/icon_nav_ptr.png" class="icon_nav" alt="" style="width:28px;height:28px;margin-right:5px;display:block"></div>
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>导出成绩</p>
+          </div>
+          <div class="weui_cell_ft"></div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>

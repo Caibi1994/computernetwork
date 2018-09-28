@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <include file="./Public/html/_head.html"/>
+ </head>
+ <body ontouchstart="">
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">签到列表</h1>
+    </header>
+
+    <div class="weui_panel weui_panel_access">
+      <div class="weui_panel_bd">
+          <volist name="signinList" id="signinList" empty="没有签到信息">
+            <a href="{:U('signin_list_set')}/signinId/{$signinList.id}" class="weui_media_box weui_media_appmsg">
+              <div class="weui_media_bd">
+                <h4 class="weui_media_title">{$signinList.signinName| default="默认签到名称"}</h4>
+                <p class="weui_media_desc">签到时间:{$signinList.time|substr=11,5} -- {$signinList.deadtime|substr=11,5}</p>
+              </div>
+              <div class="weui_cell_ft alert">
+                <div><if condition="$signinList.state eq '开启'"><i class="weui_icon_success_circle"></i>状态:开启<else /> <i class="weui_icon_warn"></i>状态:关闭</if></div>
+                <div><i class="weui_icon_info"></i>签到人数:{$signinList.signinNum}</div>
+              </div>
+            </a>
+          </volist>
+      </div>
+    </div>
+
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

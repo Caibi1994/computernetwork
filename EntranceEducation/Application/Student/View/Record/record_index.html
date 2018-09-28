@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>题目索引</title>
+		<include file="./Public/weui2.0/__head.html"/>
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+	</head>
+	<body>
+	    <volist name="quesList" id="quesList" key="k" >
+			<if condition="($k)%7 eq 1">
+				<div class="weui-flex">
+				    <a class="weui-flex__item" href="{$quesList.quesid|get_record_url_css=###}"><div class="{$quesList.quesid|get_record_index_css=###}">{$quesList.quesid}</div></a>
+			<elseif condition="($k)%7 eq 0"/>
+				<a class="weui-flex__item" href="{$quesList.quesid|get_record_url_css=###}"><div class="{$quesList.quesid|get_record_index_css=###}">{$quesList.quesid}</div></a>
+				    </div>
+			<else /> 
+				<a class="weui-flex__item" href="{$quesList.quesid|get_record_url_css=###}"><div class="{$quesList.quesid|get_record_index_css=###}">{$quesList.quesid}</div></a>
+			</if>
+		</volist>
+	</body>
+
+</html>
+   	
+

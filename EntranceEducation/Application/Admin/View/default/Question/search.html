@@ -1,0 +1,92 @@
+<style>
+	input{
+		border: 0;
+		height: 200px;
+		width: 100px;
+		word-break:break-all;
+	}
+	textarea{
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+		border: 0;
+	}
+
+</style>
+<div class="aright">
+
+<fieldset class="layui-elem-field layui-field-title" style="margin: 20px 30px 20px 20px;">
+  <legend>搜索</legend>
+</fieldset>
+
+<form method="post" action="" class="aform cl">
+	<table width="100%">
+		<tbody>
+                <tr>
+                    <th width="3%" align="center" >id</th>
+                    <th width="5%" align="center">题目章节</th>
+                    <th width="10%" align="center">题目类型(1单选 2判断 3多选)</th>
+                    <th width="10%" align="center">题干内容</th>
+                </tr>
+                <tr>
+                    <td align="center"><textarea rows="5" cols="20" name="id">{$data[id]}</textarea></td>
+                    <td align="center"><textarea rows="5" cols="20" name="chapter">{$data[chapter]}</textarea></td>
+                    <td align="center"><textarea rows="5" cols="30" name="type">{$data[type]}</textarea></td>
+                    <td align="center"><textarea rows="5" cols="100" name="contents">{$data[contents]}</textarea></td>
+                </tr>
+                <tr>
+			</tr>
+		</tbody>
+	</table>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="margin: 20 35%;">
+          <button id="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">搜索</button>
+          <button class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
+        </div>
+    </div>
+
+    <if condition="$result eq null"> 
+        <h1>没有查询到数据</h1>
+    <else />
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="3%" align="center" >id</th>
+                    <th width="5%" align="center">题目章节</th>
+                    <th width="5%" align="center">题目类型</th>
+                    <th width="30%" align="center">题干内容</th>
+                    <th width="10%" align="center">选项A</th>
+                    <th width="10%" align="center">选项B</th>
+                    <th width="10%" align="center">选项C</th>
+                    <th width="10%" align="center">选项D</th>
+                    <th width="10%" align="center">正确选项</th>
+                    <th width="10%" align="center">操作</th></tr>
+                <volist name="result" id="result" empty="" >
+                    <tr>
+                        <td style="padding-left: 20px;">{$result.id}</td>
+                        <td align="center">{$result.chapter}</td>
+                        <td align="center">{$result.type}</td>
+                        <td align="center">{$result.contents}</td>
+                        <td align="center">{$result.option_a}</td>
+                        <td align="center">{$result.option_b}</td>
+                        <td align="center">{$result.option_c}</td>
+                        <td align="center">{$result.option_d}</td>
+                        <td align="center">{$result.right_answer}</td>
+                        <td align="center">
+                            <a href="{:U('Question/edit', array('id'=>$result['id']))}">修改</a>|<a href="{:U('Question/delete', array('id' => $result['id']))}" onclick="return confirm('您确定删除吗？');">删除</a>
+                        </td>
+                    </tr>
+                </volist>  
+
+                
+            </tbody>
+        </table>
+    </if>
+
+</form>
+<script>
+
+</script>
+</div>

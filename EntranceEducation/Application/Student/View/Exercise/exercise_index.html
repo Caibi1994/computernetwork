@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>题目索引</title>
+	<include file="./Public/weui2.0/__head.html"/>
+	<!-- <include file="./Public/html/_head.html"/> -->
+	<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+    <style type="text/css">
+        .weui-loadmore_line .weui-loadmore__tips {
+            background-color: #12b7f5; 
+            color: #757575;
+        }
+    </style>
+</head>
+<body ontouchstart>
+	<div class="modal-content">
+	    <volist name="quesList" id="quesList" key="k" >
+	    	<!-- <div class="weui-row weui-no-gutter column" style="height:2.8rem"> -->
+	    		<if condition="($k)%7 eq 1"> 
+	    			<div class="weui-flex">
+					    <a class="weui-flex__item" href="{$quesList.id|get_exercise_url_css=###}">
+					    <div class="{$quesList.id|get_exsercise_index_css=###}">{$quesList.id}</div>
+					    </a>
+					<!-- </div>    -->
+				<elseif condition="($k)%7 eq 0"/> 
+					<!-- <div class="weui-flex"> -->
+						<a class="weui-flex__item" href="{$quesList.id|get_exercise_url_css=###}">
+						<div class="{$quesList.id|get_exsercise_index_css=###}">{$quesList.id}</div>
+						</a>
+					</div>
+				<else />
+					<!-- <div class="weui-flex">  -->
+						<a class="weui-flex__item" href="{$quesList.id|get_exercise_url_css=###}">
+							<div class="{$quesList.id|get_exsercise_index_css=###}">{$quesList.id}</div>
+						</a>
+					<!-- </div> -->
+				</if>
+            <!-- </div> -->
+		</volist>
+	</div>
+    <div class="weui-loadmore">
+      <i class="weui-loading"></i>
+      <span class="weui-loadmore__tips">正在加载</span>
+    </div>		
+</body>
+
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/weui2.0/__foot.html"/>
+<script>
+    var loading = false;  //状态标记
+    $(document.body).infinite().on("infinite", function() {
+    if(loading) return;
+    loading = true;
+
+    setTimeout(function() {
+    $.ajax({
+        url: "{:U('Exercise/exercise_index')}",           //请求路径；
+        success: function(res) {
+            var str = '';
+            //var number = parseInt($(".num:last").html());
+            //var No = 0;
+
+            //如果没有更多数据，则更改样式
+            if (res == '') {
+                $(".weui-loadmore").addClass(" weui-loadmore_line");
+                $(".weui-loadmore").html("<span class='weui-loadmore__tips'>暂无数据</span>")
+                return false;
+            }
+            
+            console.log(res);
+
+
+            //否则添加内容
+            for (var i = 0; i < res.length; i++) {
+                //str += "<div class='weui-row weui-no-gutter column' style='height:2.8rem'>"
+                //No = number + i + 1 ;
+                // var quesid = "{$quesList.id}";
+                var j = res[i]['id'];
+                if ( j%7 == 1 ) {
+                    str += "<div class= 'weui-flex'>" + "<a class='weui-flex__item' href='"+res[i]['url']+"'>"+"<div class='"+res[i]['css']+"'>"+j+"</div></a>";
+                } else if ( j%7 == 0 ){
+                    str += "<a class='weui-flex__item' href='"+res[i]['url']+"'>"+"<div class='"+res[i]['css']+"'>"+j+"</div></a>" +"</div>";
+                } else {
+                    str += "<a class='weui-flex__item' href='"+res[i]['url']+"'>"+"<div class='"+res[i]['css']+"'>"+j+"</div></a>";
+                }
+                // str += "<div class='NAC'><div class='name'>"+ res[i]['info']['name'] +"&nbsp;</div><div class='class'>";
+
+                // if (res[i]['info']['class'] == '') {
+                //     str += '非新生用户';
+                // } else {
+                //     str += res[i]['info']['class'];
+                // }
+                // str += "&nbsp;</div></div><div class='GAT'><div class='grade'>" + res[i]['sum(result)'] + "&nbsp;<span class='ti'>题</span></div></div></div>"
+            }
+
+            $(".modal-content").append(str);
+        }
+    });
+    loading = false;
+    }, 500);   //模拟延迟
+});
+</script>
+   	
+

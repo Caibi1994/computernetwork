@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+
+    <style>
+      #all{
+        margin:0px auto;
+        /*text-align: center;    */    
+      }
+      h4{
+        margin-left: 25px;
+      }
+      .a{
+        margin-top: 20px;
+        text-align: center;
+      }
+      a{
+        font-size: 25px;      
+      }
+
+</style>
+
+  </head>
+
+  <body id="all">
+   
+    <header class='demos-header'>
+      <h1 class="demos-title">我的答题记录</h1>
+    </header>
+
+    <font face="黑体" color="#9D9D9D">
+      <h2>单选题：</h2>
+              <h4>蓝√，表示：回答正确;</h4>
+              <h4>红×，表示：你选择了该错误选项;</h4>
+              <h4>红√，表示：此选项才是正确答案。</h4>
+      <h2>判断题：</h2>
+              <h4>蓝√，表示：回答正确;
+              <h4>红×，表示：你选择了该错误选项;</h4>
+              <h4>红√，表示：此选项才是正确答案。</h4>  
+      <h2>多选题：</h2>
+              <h4>蓝√，表示：你选择的正确选项;</h4>
+              <h4>红×，表示：你多选了的错误选项;</h4>
+              <h4>红√，表示：你漏选了的正确选项。</h4>
+              <h4>全部蓝√表示回答正确，有红√表示你有漏选的正确选项，有红×表示你有多选的错误选项。</h4>
+                  
+    </font>
+
+      <div class="footer">
+        <div class="a">
+          <a class="button white" href="{:U('Record/record',array('openId'=>session('openId')))}">查看记录</a>
+        </div>
+      </div>    
+
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
+<script>

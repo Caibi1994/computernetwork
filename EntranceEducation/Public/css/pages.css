@@ -1,0 +1,30 @@
+.jiben {
+    background: #12b7f5;
+    padding: 0.6rem 1rem;
+    margin-top: 0;
+}
+.tx_box{
+	padding-bottom: 0;
+}
+.tx_box .tx {
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin-top: 5px;
+}
+.tx_box ul {
+    float: left;
+    list-style: none;
+    padding: 25px 0.8rem;
+    margin: 0;
+    color: #fff;
+}
+.tx_box ul li{font-size: 20px;}
+.tx_box ul .info{font-size: 12px;}
+
+
+
+/*cplat 整个页面的 contents*/
+.contents {
+    padding-bottom: 55px;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+    <!-- <link rel="stylesheet" href="__PUBLIC__/css/style.css"> -->
+    <!-- <link rel="stylesheet" href="__PUBLIC__/css/pages.css"> -->
+    <script src="__PUBLIC__/font/iconfont.js"></script>
+
+    <style>
+        .cell_top{margin-top:0px;}
+        .people{margin-left: 30px;}
+        .content {margin: 0 20px 10px 20px;}
+        .weui-badge {display: initial;}
+    </style>
+
+  </head>
+
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">测试统计</h1>
+    </header>
+
+    <volist name="quesList" id="quesList" empty="没有试题信息息">
+      <div class="weui_cells weui_cells_form cell_top">
+        <div class="content">
+          <div class="weui_cell weui_cell_switch">
+            <!-- <div class="weui_cell_hd weui_cell_primary">{$i}.</div> -->
+            <div class="weui_cell_ft">
+                <!-- <input class="weui_switch" type="checkbox" > -->
+                <div class="quesId">{$quesList.id}</div>
+            </div>
+          </div>
+
+          <div class="c-pic">
+            {$i}.<span class="weui-badge" style="margin-right: 5px;">{$quesList.type}</span>
+            {$quesList.contents|repleace_question_image=###}
+          </div>
+          <div class="c-table">
+            <!-- option exit -->
+            <if condition="$quesList.option_a neq ''">
+              <a href="javascript:;">
+                <div class="option-area" id="option-a">
+                    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-a"></use></svg></span>
+                    <lable class="option-contents">{$quesList.option_a}</lable>
+                </div>
+              </a>
+            </if>
+
+            <if condition="$quesList.option_b neq ''">
+              <a href="javascript:;">
+                <div class="option-area" id="option-b">
+                    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-b"></use></svg></span>
+                    <lable class="option-contents">{$quesList.option_b}</lable>
+                </div>
+              </a>
+            </if>
+
+            <if condition="$quesList.option_c neq ''">
+              <a href="javascript:;">
+                <div class="option-area" id="option-c">
+                    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-c"></use></svg></span>
+                    <lable class="option-contents">{$quesList.option_c}</lable>
+                </div>
+              </a>
+            </if>
+
+            <if condition="$quesList.option_d neq ''">
+              <a href="javascript:;">
+                <div class="option-area" id="option-d">
+                    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-option-d"></use></svg></span>
+                    <lable class="option-contents">{$quesList.option_d}</lable>
+                </div>
+              </a>
+            </if>
+
+          </div> 
+        </div>          
+      </div>
+      <div class="weui_cells weui_article cell_top" style="padding:0px; left:5px;">
+          <div>
+            <if condition="$quesList.type eq '单选题'">
+              <span class="people">A：{$quesList.optionA}人</span>
+              <span class="people">B：{$quesList.optionB}人</span>
+              <span class="people">C：{$quesList.optionC}人</span>
+              <span class="people">D：{$quesList.optionD}人</span>
+            <elseif condition="$quesList.type eq '判断题'"/>
+              <span class="people">对：{$quesList.optionR}人</span>
+              <span class="people">错：{$quesList.optionW}人</span>
+            <else />
+              <span class="people">多选题暂不统计</span>
+            </if>
+          </div>
+      </div>
+    </volist>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

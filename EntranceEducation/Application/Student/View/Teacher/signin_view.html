@@ -1,0 +1,37 @@
+<!-- 已签到列表 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <style>
+      [class*="weui-col-"] {
+        border: 1px solid #ccc;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+      }
+
+    </style>
+  </head>
+  <body ontouchstart>
+    <include file="./Public/html/_refresh.html"/>
+    <header class='demos-header'>
+      <h1 class="demos-title">签到记录</h1>
+    </header>
+
+    <div class="weui-row weui-no-gutter">
+      <div class="weui-col-25">序号</div>
+      <div class="weui-col-25">姓名</div>
+      <div class="weui-col-50">签到时间</div>
+    </div>
+    <volist name="signinList" id="signinList" key="k" empty="没有签到信息">
+      <div class="weui-row weui-no-gutter">
+        <div class="weui-col-25">{$k}</div>
+        <div class="weui-col-25">{$signinList.name}</div>
+        <div class="weui-col-50">{$signinList.time}</div>
+      </div>
+    </volist>
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

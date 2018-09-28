@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>信息绑定</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="浙江工商大学教务处信息查询系统">
+
+    <link rel="stylesheet" href="http://23.testet.sinaapp.com/Public/lib/weui.min.css">
+    <link rel="stylesheet" href="http://23.testet.sinaapp.com/Public/css/jquery-weui.css">
+    <link rel="stylesheet" href="http://23.testet.sinaapp.com/Public/css/demos.css">
+    <style>
+    .demos-title{font-size: 25px; margin:0 10%;}.logo{text-align: center;}.weui_cells_form{margin: 1em;font-size: 14px;}.weui_cell{border-bottom: 1px solid #04BE02;}.weui_btn_areas {margin-left: 80px;margin-right: 80px;margin-top: 1.5em;}.weui_logo_pic{width: 10em;}.demos-header{padding-bottom: 10px;
+    }
+    </style>
+  </head>
+  <body ontouchstart>
+      <header class='demos-header'>
+        <h2 class="demos-title">浙江工商大学教务处</h2>
+        <p class="demos-sub-title">信息绑定</p>
+      </header>
+      <div class="logo">
+
+        <div class="weui_icon_area"><img class="weui_logo_pic" src="http://23.testet.sinaapp.com/Public/images/newer/edu_logo.jpg"></div>
+      </div>
+      <form action="{:U('handRegister')}">
+        <div class=" weui_cells_form">
+         <div class="weui_cell"> 
+          <div class="weui_cell_bd weui_cell_primary"> 
+           <input class="weui_input" id="number" name="number" type="number" maxlength="10" placeholder="学号" required="required">
+          </div> 
+         </div>
+         <div class="weui_cell"> 
+          <div class="weui_cell_bd weui_cell_primary"> 
+           <input class="weui_input" id="password" name="password" type="password"  placeholder="教务网密码" required="required">
+          </div> 
+         </div>
+        </div>
+          
+        <div class="weui_btn_areas">
+         <button id="submit" class="weui_btn weui_btn_plain_primary">确定</button>
+        </div>
+      </form>
+  </body>
+</html>
+
+<include file="./Public/html/_foot.html"/>
+<script>
+    $("#submit").click(function() {
+      var number = $('#number').val();
+      var password = $('#password').val();
+      if(!number){$.toptip('请输入学号'); return false;} 
+      else if(!password) {$.toptip('请选择密码'); return false;}
+      else {
+        /*=============上传数据==========*/
+        /*url  = "{:U('handRegister')}",
+        data = {
+          number : number,
+          password: password
+        }
+        $.post(url,data,function(res){
+          $.showLoading();
+          setTimeout(function() {
+            $.hideLoading();
+            if(res == 1){
+              $.toast("注册成功");  
+            }else if(res == 2){
+              $.toast("账号密码不匹配");
+            }else{
+              $.toast('注册失败');
+            }
+            $('#submit').hide(); //隐藏确定键
+          }, 2000)
+        });*/
+      }
+    });
+  </script>  

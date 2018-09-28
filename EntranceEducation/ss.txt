@@ -1,0 +1,44 @@
+<div class="weui-cells__title">按知识点分类</div>
+                <div class="weui-cells">
+                    <volist name="quesChapterArr" id="quesChapterArr">
+                        <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise_chap', array('chapid'=>$quesChapterArr['id']))}">
+                            <div class="weui-cell__hd">
+                                <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-mutil"></use></svg></span>   
+                            </div>
+                            <div class="weui-cell__bd">
+                                <p>{$quesChapterArr.chapter}</p>
+                            </div>
+                            <div class="weui-cell__ft">{$quesChapterArr.num}题</div></a>
+
+                    </volist>                    
+                </div>
+            
+
+                <div class="weui-cells__title">按题型分类</div>
+                <div class="weui-cells">
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise', array('tpid'=>1))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-danxuan"></use></svg></span>
+
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>单选题</p>
+                        </div>
+                        <div class="weui-cell__ft">{$quesTypeArr[0]['num']}题</div></a>
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise', array('tpid'=>2))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-judge"></use></svg></span>    
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>判断题</p>
+                        </div>
+                        <div class="weui-cell__ft">{$quesTypeArr[1]['num']}题</div></a>
+                    <a class="weui-cell weui-cell_access" href="{:U('Exercise/exercise', array('tpid'=>3))}">
+                        <div class="weui-cell__hd">
+                            <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-mutil"></use></svg></span>    
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>多选题</p>
+                        </div>
+                        <div class="weui-cell__ft">{$quesTypeArr[2]['num']}题</div></a>
+                </div>

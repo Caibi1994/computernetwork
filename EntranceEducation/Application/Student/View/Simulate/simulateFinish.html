@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+  </head>
+
+  <body ontouchstart>
+
+    <div class="weui_msg">
+      <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+      <div class="weui_text_area">
+        <h2 class="weui_msg_title">恭喜你完成试卷！</h2>
+        <!-- <p class="weui_msg_desc">{$testResult}</p> -->
+      </div>
+
+      <div class="weui_icon_area">
+        <a href="{:U('Simulate/simulateResult')}/openId/{$openId}/testId/{$testId}">查看成绩</a>
+      </div>
+    </div>
+  </body>
+</html>

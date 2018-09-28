@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>错题重做</title>
+		<include file="./Public/weui2.0/__head.html"/>
+		<link href="__PUBLIC__/css/exercise.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+        <link rel="stylesheet" href="__PUBLIC__/css/pages.css">
+		<script src="__PUBLIC__/font/iconfont.js"></script>
+		<style type="text/css">
+			body{
+		    	margin: 0 20px;
+		    }
+			.c-time{
+				padding-bottom: 13px;
+			}
+		    .content{
+		    	margin-left: 0;
+		    	margin-right: 0;
+		    }
+			.bar {padding: 0; padding: 0 20px; background-color:#fbf9fe; color: #476777; }
+			.title {background-color:#fbf9fe; color: #476777;}
+            .bar .icon {margin: 10px 0; padding: 0; }
+            .picker-button {font-size: 14px; color: #476777;}
+            .weui-badge{background-color: #00ff00;}
+            .content{padding-bottom: 0px;padding-top: 2rem;}
+            .option-contents {display: block;margin-left: 40px;padding: 13px 10px 20px 0;line-height: 25px;margin-top: -20px;}
+		</style>
+
+	</head>
+	<body>
+		<header class="bar bar-nav">
+	        <div class="title">{$ques.chapter}</div>
+	        <a href="{:U('User/index',array('openId'=>session('openId')))}" class="pull-left"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-fanhui"></use></svg></a>
+<!-- 	        <a href="javascript:;" class="pull-right open-popup" data-target="#half"><svg class="icon icon-left .icon-title" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-all"></use></svg></a> -->
+	    </header>		
+		<div class="content">
+			<span class="c-title">{$name}</span>
+			<p class="c-time">{:date('m-d H:i:s', time())}<label style=" float: right;">还剩{$num}道错题未复习</label></p>
+			<div class="c-pic">
+				<span class="weui-badge">{$ques.type}</span>
+				<!-- <span class="weui-badge" style="margin-left: 5px;">{$ques.chapter}</span> -->
+				{$ques.contents}
+			</div>
+		</div>
+				<a href="javascript:;">
+					<div class="option-area" id="option-right">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-icondanxuanxiangweixuanze"></use></svg></span>
+					    <lable class="option-contents">正确</lable>
+					</div>
+				</a>
+
+				<a href="javascript:;">
+					<div class="option-area" id="option-wrong">
+					    <span><svg class="icon" aria-hidden="true"><use xmlns:xlink="" xlink:href="#icon-icondanxuanxiangweixuanze"></use></svg></span>
+					    <lable class="option-contents">错误</lable>
+					</div>
+				</a>
+			<a class="c-button" href="{:U('Rework/chose')}">下一题</a>
+		</div>
+
+	</body>
+</html>
+<include file="./Public/weui2.0/__foot.html"/>
+<script type="text/javascript">
+	// 获取页面加载的时间
+    var start_time = new Date();  
+
+	$('.option-area').one('click',function(){
+		// 选择了之后正确
+		var use        = $(this).find('use')[0];
+		var lable      = $(this).find('lable')[0];
+		var option     = lable.innerHTML == '正确' ? '对' : '错'; //选项
+		var resArr     = {'对':'right', '错':'wrong'}; //用于下面 对->right 的转换
+		var now       = new Date();
+		var time      = Math.ceil((now.getTime() - start_time.getTime())/1000);
+		// console.log(option);
+
+		var data = {
+			'option': option,
+			'time'  : time,
+		}
+
+		var url = "{:U('Rework/submit')}";
+        $.post(url, data, function(res){
+        	console.log(res);
+          	if(option == res) {
+	      		use.setAttribute('xlink:href', '#icon-option-right');
+	      	} else {
+	      		use.setAttribute('xlink:href', '#icon-option-wrong');
+				$('#option-'+resArr[res]).find('use')[0].setAttribute('xlink:href', '#icon-option-right');
+	      	}
+        });
+
+        $('.c-table a').removeAttr('href'); 
+		$('.option-area').unbind(); 
+
+		
+	})	
+</script>

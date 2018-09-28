@@ -1,0 +1,11 @@
+#txtContentAdd:focus { outline: none; }
+.uploader-list { margin-left: 5px; position: relative; display: none; margin-top: 10px; margin-bottom: 10px; }
+.uploader-list .file-item {     display: inline-block;position: relative;text-align: center;margin-left: 2%;margin-right: 2%;margin-top: 5px;width: 25%; }
+.uploader-list .file-item img { border-radius: 10px; width: 100%; border: 1px solid #eee; padding: 5px; box-sizing: border-box; }
+.uploader-list .file-item i.del { cursor: pointer; position: absolute; z-index: 999; top: -10px; right: -10px; background: url(http://i.pengxun.cn/content/images/vzanback-xs11.png) no-repeat; background-position: 1px -310px; display: inline-block; width: 28px; height: 28px; }
+
+
+.uploader-list2 { margin-left: 5px; position: relative;  margin-top: 10px; margin-bottom: 10px; }
+.uploader-list2 .file-item {display: inline-block;position: relative;text-align: center;margin-left: 2%;margin-right: 2%;margin-top: 5px;width:60px; }
+.uploader-list2 .file-item img { border-radius: 10px; width: 100%; border: 1px solid #eee; padding: 5px; box-sizing: border-box; }
+.uploader-list2 .file-item i.del { cursor: pointer; position: absolute; z-index: 999; top: -10px; right: -8px; background: url(http://i.pengxun.cn/content/images/vzanback-xs11.png) no-repeat; background-position: 1px -310px; display: inline-block; width: 28px; height: 28px; }

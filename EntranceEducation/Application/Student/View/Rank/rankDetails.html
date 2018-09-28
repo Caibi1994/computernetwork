@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title></title>
+  <include file="./Public/html/_head.html"/>
+      <style>
+        .weui_cell_primary{
+          -webkit-box-flex:1;
+          -webkit-flex:1;
+          -ms-flex:1;
+          flex:1;
+          text-align: center;
+        }
+    </style>
+ </head>
+ <body ontouchstart="">
+  <include file="./Public/html/_refresh.html"/>
+  <header class="demos-header"> 
+   <h1 class="demos-title">我就是我</h1>
+  </header> 
+  <div class="weui_cells weui_cells_form"> 
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">姓名</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$student_info.name|default='null'}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">班级</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$student_info.class|default='null'}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">学号</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$student_info.number|default='null'}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">自由练习</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$answerRightNum} / {$answerNum}
+    </div> 
+   </div>
+   <div class="weui_cell"> 
+    <div class="weui_cell_hd">
+     <label class="weui_label">模拟测试</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$simulateNum} 套
+    </div>     
+   </div>
+
+   <div class="weui_cell">
+    <div class="weui_cell_hd">
+     <label class="weui_label">模拟最高得分</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$grade_info.answerRightNum}
+    </div> 
+   </div>
+
+   <div class="weui_cell">
+    <div class="weui_cell_hd">
+     <label class="weui_label">用时</label>
+    </div> 
+    <div class="weui_cell_bd weui_cell_primary"> 
+     {$grade_info.answerTime}
+    </div>
+   </div>
+   </div>
+   
+   
+ </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>

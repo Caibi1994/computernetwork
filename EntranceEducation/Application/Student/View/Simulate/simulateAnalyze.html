@@ -1,0 +1,36 @@
+<!-- 试题分析 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <include file="./Public/html/_head.html"/>
+    <style>
+        .cell_top{margin-top:0px;}
+        .analyze{margin-left: 40px;}
+    </style>
+  </head>
+
+  <body ontouchstart>
+    <!-- <include file="./Public/html/_refresh.html"/> -->
+    <header class='demos-header'>
+      <!-- <h1 class="demos-title">试题解析</h1> -->
+    </header>
+<!--     <volist name="quesList" id="quesList" empty="没有测试题目"> -->
+      <div class="weui_cells weui_cells_form cell_top ">
+        <div class="" style="padding:0px 15px;">{$proId}、</div>
+        <div class="weui_cell weui_article" style="padding:0px 15px;">
+          <img src="http://testet-public.stor.sinaapp.com{$quesList.questionPicPath|str_replace='/Public','',###}{$quesList.questionPicName}" alt="">
+        </div>
+        <div class="weui_cells weui_article cell_top" style="padding:0px; left:15px;">
+          <div>你的答案：{$answerRecord.answer}&nbsp;&nbsp;&nbsp;&nbsp;标准答案：{$quesList.rightAnswer}<span class="analyze"><br/>
+            解析：<empty name="quesList.analysisPicPath">无</empty>
+          </span></div>
+        </div>
+        <notempty name="quesList.analysisPicPath">
+          <div class="weui_cell weui_article" style="padding:0px 15px;"><img src="http://testet-public.stor.sinaapp.com{$quesList.analysisPicPath|str_replace='/Public','',###}{$quesList.analysisPicName}" alt=""></div>
+        </notempty>
+      </div>
+<!--     </volist> -->
+  </body>
+</html>
+<include file="./Public/html/_foot.html"/>
+<include file="./Public/html/_refreshJs.html"/>
